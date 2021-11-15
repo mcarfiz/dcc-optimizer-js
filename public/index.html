@@ -23,6 +23,7 @@
             fileSelector.addEventListener('change', event => {
                 const file = fileSelector.files[0];
                 if (!file) return;
+                // scan qr from file
                 QrScanner.scanImage(file)
                     .then(result => optimize(fileQrResult, result))
                     .catch(e => error(e || 'No QR code found.'));
@@ -56,7 +57,7 @@
                     var qrcode = new QRious({
                         element: qrCanvas,
                         level: 'L',
-                        padding: 0,
+                        padding: 10,
                         size: 256,
                         value: qrString
                     });
@@ -67,6 +68,7 @@
                     document.getElementById('error-msg').innerHTML = "this aint it chief.";
             } 
 
+            // download listener for the donwload button
             downloadButton.addEventListener('click', function() {
                 downloadCanvas(this, randomJpgName());
             }, false);
@@ -79,12 +81,14 @@
                 link.download = filename;
             }
 
+            // generate random filename
             function randomJpgName() {
                 return "QR-" + Math.round(Math.random() * 10000) + ".png";
             }
 
+            
+            // flush errors and previous prints
             function resetPage() {
-                // flush errors and previous prints
                 document.getElementById('error-msg').innerHTML = "";
                 downloadButton.style.display = "none";
 
