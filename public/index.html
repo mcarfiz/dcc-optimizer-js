@@ -9,60 +9,71 @@
     </head>
 
     <body>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+        <script type="text/javascript" src="./lib/qr-code-styling.js"></script>
+
         <script type="module">
             const fileSelector = document.getElementById('file-selector')
             const fileQrResult = document.getElementById('file-qr-result')
             const downloadButton = document.getElementById('download')
             const qrCanvas = document.getElementById('qrcode-canvas')
             
-            import QrScanner from './libs/qr-scanner.min.js';
-            QrScanner.WORKER_PATH = './libs/qr-scanner-worker.min.js';
+            import QrScanner from './lib/qr-scanner.min.js';
+            QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
             
+            var qrCode;
+
             // file scanning listener
             fileSelector.addEventListener('change', event => {
+                resetPage();
+                // https://blog.minhazav.dev/research/html5-qrcode.html#scan-using-file better library to read everything?
                 const file = fileSelector.files[0];
                 if (!file) return;
                 // scan qr from file
                 QrScanner.scanImage(file)
                     .then(result => optimize(fileQrResult, result))
                     .catch(e => error(e || 'No QR code found.'));
-                 
             });
 
         
             // optimize function called if the file scan was ok
             async function optimize(label, result) {
-                resetPage();
-                // flush errors and previous prints
-                document.getElementById('error-msg').innerHTML = "";
-                downloadButton.style.display = "none";
-                const ctx = qrCanvas.getContext('2d');
-                ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+                
 
                 label.textContent = result;
-                
-                var qrString;
 
-                // debug sleep - remove it
-                //await sleep(1500);
-                qrString = String(fileQrResult.textContent);
+                var qrString = String(fileQrResult.textContent);
                 // check if the decoded qr starts with HC1:
                 // not ideal because malicious qr could have the prefix string injected and still be accepted
                 // better solution to use the dcc-utils to check maybe?
                 if (qrString.substring(0, 4) === "HC1:"){
                     qrString = qrString.replace("HC1:", "");
 
-                    // produce qr code from qrString, show it (?) and download it
-                    var qrcode = new QRious({
-                        element: qrCanvas,
-                        level: 'L',
-                        padding: 10,
-                        size: 256,
-                        value: qrString
+                    // documentation: https://github.com/kozakdenys/qr-code-styling
+                    // can be improved to make options be selected by user
+                    qrCode = new QRCodeStyling({
+                        width: 710,
+                        height: 710,
+                        type: "jpeg",
+                        data: qrString,
+                        dotsOptions: {
+                            color: "#000000",
+                            type: "square"
+                        },
+                        backgroundOptions: {
+                            color: "#ffffff",
+                        },
+                        imageOptions: {
+                            crossOrigin: "anonymous",
+                            margin: 20
+                        },
+                        qrOptions: {
+                            mode: "Alphanumeric",
+                            errorCorrectionLevel: 'L'
+                        }
                     });
 
-                    document.getElementById('download').style.display = "block";
+                    qrCode.append(qrCanvas);
+                    downloadButton.style.display = "block";
                 }
                 else
                     document.getElementById('error-msg').innerHTML = "this aint it chief.";
@@ -70,30 +81,21 @@
 
             // download listener for the donwload button
             downloadButton.addEventListener('click', function() {
-                downloadCanvas(this, randomJpgName());
+                // download generated image as jpg with a random name
+                qrCode.download({ name: randomJpgName(), extension: "jpeg"});
             }, false);
-
-            // download the generated canvas
-            // called by download button on click
-            function downloadCanvas(link, filename) {
-                //alert("here i am " + filename);
-                link.href = qrCanvas.toDataURL();
-                link.download = filename;
-            }
 
             // generate random filename
             function randomJpgName() {
-                return "QR-" + Math.round(Math.random() * 10000) + ".png";
+                return "QR-" + Math.round(Math.random() * 10000 + Math.random()*1000);
             }
 
-            
             // flush errors and previous prints
             function resetPage() {
                 document.getElementById('error-msg').innerHTML = "";
                 downloadButton.style.display = "none";
-
-                const ctx = qrCanvas.getContext('2d');
-                ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+                fileQrResult.innerHTML = "";
+                qrCanvas.innerHTML = "";
             }
             // debug sleep function
             function sleep(ms) {
@@ -106,7 +108,6 @@
 
         </script>
 
-©
         <h1 class="display-2">DCGC optimizer</h1>
 
         <div class="d-flex flex-column mx-auto" style="width: 75%;">
@@ -121,8 +122,8 @@
             </div>
         
             <div class="p-2">
-                <canvas id="qrcode-canvas"></canvas>
-                <a href="" class="btn btn-primary" style="display: none;" id="download">Download QR code</a>
+                <div class="max-vw-50" id="qrcode-canvas"></div>
+                <input type="button" class="btn btn-primary" style="display: none;" id="download" value="Download QR code">
             </div>
         </div>
         
