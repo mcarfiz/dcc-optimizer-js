@@ -48,7 +48,7 @@
                 // should be used to check rules validity TO-DO
                 const dcc = await DCC.fromRaw(qrString);
                 // debug print
-                alert("Payload " + string);
+                alert("Payload " + toString(dcc.payload));
 
                 // check if the decoded qr starts with HC1:
                 // not ideal because malicious qr could have the prefix string injected and still be accepted
