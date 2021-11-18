@@ -39,22 +39,22 @@
         
             // optimize function called if the file scan was ok
             async function optimize(label, result) {
-                
-                label.textContent = result;
-
-                var qrString = String(fileQrResult.textContent);
-
+                var qrString = String(result);
                 // decode of cose content into dcc constant
                 // should be used to check rules validity TO-DO
                 const dcc = await DCC.fromRaw(qrString);
                 // debug print
-                alert("Payload " + toString(dcc.payload));
+                //alert("Payload " + toString(dcc.payload));
 
                 // check if the decoded qr starts with HC1:
                 // not ideal because malicious qr could have the prefix string injected and still be accepted
                 // better solution to use the dcc-utils to check maybe?
                 //if (qrString.substring(0, 4) === "HC1:"){
                 if (dcc){
+                    label.textContent = result;
+                    
+                    // debug print
+                    document.getElementById('payload').innerHTML = toString(dcc.payload);
                     qrString = qrString.replace("HC1:", "");
 
                     // documentation: https://github.com/kozakdenys/qr-code-styling
@@ -85,7 +85,7 @@
                     downloadButton.style.display = "block";
                 }
                 else
-                    document.getElementById('error-msg').innerHTML = "this aint it chief.";
+                    document.getElementById('error-msg').innerHTML = "Internal problems reading the QR code occurred.";
             } 
 
             // download listener for the donwload button
@@ -105,10 +105,7 @@
                 downloadButton.style.display = "none";
                 fileQrResult.innerHTML = "";
                 qrCanvas.innerHTML = "";
-            }
-            // debug sleep function
-            function sleep(ms) {
-               return new Promise(resolve => setTimeout(resolve, ms));
+                document.getElementById('payload').innerHTML = "";
             }
 
             function error(msg) {
@@ -132,7 +129,9 @@
             </div>
             <div class="p-2">
                 <small class="text-muted">Debug QR content:</small>
-                <span id="file-qr-result" style="color: teal;"> </span>
+                <div id="file-qr-result" style="color: teal;"> </div>
+                <small class="text-muted">Payload:</small>
+                <p id="payload" style="color: darkorchid;"></p>
                 <p id="error-msg" style="color: red;"></p>
             </div>
         
