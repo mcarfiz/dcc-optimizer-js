@@ -10,7 +10,9 @@
 
     <body>
         <script type="text/javascript" src="./lib/qr-code-styling.js"></script>
-
+        <!-- build via browserify dcc.js --standalone DCC > dcc-browser.js -->
+        <script type="module" src="./lib/dcc-browser.js"></script>
+        
         <script type="module">
             const fileSelector = document.getElementById('file-selector')
             const fileQrResult = document.getElementById('file-qr-result')
@@ -38,14 +40,21 @@
             // optimize function called if the file scan was ok
             async function optimize(label, result) {
                 
-
                 label.textContent = result;
 
                 var qrString = String(fileQrResult.textContent);
+
+                // decode of cose content into dcc constant
+                // should be used to check rules validity TO-DO
+                const dcc = await DCC.fromRaw(qrString);
+                // debug print
+                alert("Payload " + string);
+
                 // check if the decoded qr starts with HC1:
                 // not ideal because malicious qr could have the prefix string injected and still be accepted
                 // better solution to use the dcc-utils to check maybe?
-                if (qrString.substring(0, 4) === "HC1:"){
+                //if (qrString.substring(0, 4) === "HC1:"){
+                if (dcc){
                     qrString = qrString.replace("HC1:", "");
 
                     // documentation: https://github.com/kozakdenys/qr-code-styling
@@ -104,6 +113,12 @@
 
             function error(msg) {
                 document.getElementById('error-msg').innerHTML = msg;
+            }
+
+            // correctly print json as a string
+            // otherwise only object [object] is printed
+            function toString(object) {
+                return JSON.stringify(object, null, 4);
             }
 
         </script>
