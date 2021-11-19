@@ -4,8 +4,8 @@ const path = require('path');
 // electron stuff
 function createWindow () {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 500,
+        height: 700,
         titleBarStyle: "hidden",
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
