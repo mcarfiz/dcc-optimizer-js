@@ -18,7 +18,6 @@ function createWindow () {
 
 app.whenReady().then(() => {
     createWindow()
-
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow()
@@ -26,7 +25,9 @@ app.whenReady().then(() => {
     })
 })
 
+// app closure
 app.on('window-all-closed', () => {
+    // on macos app should be closed only manually
     if (process.platform !== 'darwin') {
         app.quit()
     }
