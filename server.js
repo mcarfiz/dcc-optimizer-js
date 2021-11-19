@@ -1,21 +1,34 @@
-import express from "express";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import path from 'path';
+const { app, BrowserWindow } = require("electron");
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// electron stuff
+function createWindow () {
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        titleBarStyle: "hidden",
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
+  })
 
-const app = express();
-const port = 3000;
+    win.menuBarVisible = false
+    win.loadFile(path.join(__dirname, '/public/index.html'))
+}
 
-// set /public directory to fetch files
-app.use(express.static(path.join(__dirname, 'public')));
+app.whenReady().then(() => {
+    createWindow()
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createWindow()
+        }
+    })
+})
 
-app.listen(port);
-console.log('Listening on port ' + port);
-
-// render index
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html')
+// app closure
+app.on('window-all-closed', () => {
+    // on macos app should be closed only manually
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
 })

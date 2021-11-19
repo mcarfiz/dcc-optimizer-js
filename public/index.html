@@ -6,6 +6,7 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+       
     </head>
 
     <body>
@@ -15,9 +16,11 @@
         
         <script type="module">
             const fileSelector = document.getElementById('file-selector')
-            const fileQrResult = document.getElementById('file-qr-result')
+            //const fileQrResult = document.getElementById('file-qr-result')
             const downloadButton = document.getElementById('download')
             const qrCanvas = document.getElementById('qrcode-canvas')
+            const errorMsg = document.getElementById('error-msg')
+            const succMsg = document.getElementById('succ-msg')
             
             import QrScanner from './lib/qr-scanner.min.js';
             QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
@@ -30,38 +33,40 @@
                 // https://blog.minhazav.dev/research/html5-qrcode.html#scan-using-file better library to read everything?
                 const file = fileSelector.files[0];
                 if (!file) return;
+                document.getElementById('upload-file-info').innerHTML = file.name;
                 // scan qr from file
                 QrScanner.scanImage(file)
-                    .then(result => optimize(fileQrResult, result))
+                    .then(result => optimize(/*fileQrResult, */result))
                     .catch(e => error(e || 'No QR code found.'));
             });
 
         
             // optimize function called if the file scan was ok
-            async function optimize(label, result) {
+            async function optimize(/*label,*/ result) {
                 var qrString = String(result);
                 // decode of cose content into dcc constant
                 // should be used to check rules validity TO-DO
+                // also we can check if the certificate has valid signature
                 const dcc = await DCC.fromRaw(qrString);
-                // debug print
-                //alert("Payload " + toString(dcc.payload));
 
-                // check if the decoded qr starts with HC1:
-                // not ideal because malicious qr could have the prefix string injected and still be accepted
-                // better solution to use the dcc-utils to check maybe?
+                
                 //if (qrString.substring(0, 4) === "HC1:"){
                 if (dcc){
-                    label.textContent = result;
+                    // debug print
+                    //label.textContent = result;
                     
                     // debug print
-                    document.getElementById('payload').innerHTML = toString(dcc.payload);
+                    //document.getElementById('payload').innerHTML = toString(dcc.payload);
+
+                    // remove health certificate version
                     qrString = qrString.replace("HC1:", "");
 
+                    // generate new qr code
                     // documentation: https://github.com/kozakdenys/qr-code-styling
                     // can be improved to make options be selected by user
                     qrCode = new QRCodeStyling({
-                        width: 710,
-                        height: 710,
+                        /*width: 512,
+                        height: 512,*/
                         type: "jpeg",
                         data: qrString,
                         dotsOptions: {
@@ -75,41 +80,53 @@
                             crossOrigin: "anonymous",
                             margin: 20
                         },
-                        qrOptions: {
+                        qrOptions: { // these two are crucial to get a small QR code
                             mode: "Alphanumeric",
                             errorCorrectionLevel: 'L'
                         }
                     });
 
+                    // show success message
+                    succMsg.className = "alert alert-success";
+                    succMsg.innerHTML = "QR has been correctly generated.";
+                    // appen qr rectangle to page and show download button
                     qrCode.append(qrCanvas);
                     downloadButton.style.display = "block";
                 }
                 else
-                    document.getElementById('error-msg').innerHTML = "Internal problems reading the QR code occurred.";
+                    // show error message
+                    errorMsg.innerHTML = "Internal problems reading the QR code occurred.";
             } 
 
             // download listener for the donwload button
             downloadButton.addEventListener('click', function() {
                 // download generated image as jpg with a random name
-                qrCode.download({ name: randomJpgName(), extension: "jpeg"});
+                qrCode.download({ name: randomName(), extension: "jpeg"});
+                alert("New QR download has started.");
             }, false);
 
             // generate random filename
-            function randomJpgName() {
+            function randomName() {
                 return "QR-" + Math.round(Math.random() * 10000 + Math.random()*1000);
             }
 
             // flush errors and previous prints
             function resetPage() {
-                document.getElementById('error-msg').innerHTML = "";
+                errorMsg.innerHTML = "";
+                errorMsg.className = "";
+                succMsg.innerHTML = "";
+                succMsg.className= "";
                 downloadButton.style.display = "none";
-                fileQrResult.innerHTML = "";
+                //fileQrResult.innerHTML = "";
                 qrCanvas.innerHTML = "";
-                document.getElementById('payload').innerHTML = "";
+                //document.getElementById('payload').innerHTML = "";
+                
             }
 
+            // error print
             function error(msg) {
-                document.getElementById('error-msg').innerHTML = msg;
+                errorMsg.className = "alert alert-danger";
+                errorMsg.innerHTML = msg;
             }
 
             // correctly print json as a string
@@ -120,25 +137,56 @@
 
         </script>
 
-        <h1 class="display-2">DCGC optimizer</h1>
+        <!-- header -->
+        <nav class="navbar navbar-dark bg-primary" style="padding-top: 20px;">
+            <a class="navbar-brand" href="./index.html">
+                <img src="./img/nav.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                DGCC QR optimizer
+            </a>
+        </nav>
 
-        <div class="d-flex flex-column mx-auto" style="width: 75%;">
-            <div class="p-2">
-                <h1 class="display-3">Scan from File:</h1>
-                <input type="file" id="file-selector" class="form-control">
+        <div class="rowd-flex flex-column mx-auto" style="width: 85%;">
+            <div class="row p-2">
+                <h3>Upload your QR Covid Certificate:</h3>
             </div>
-            <div class="p-2">
-                <small class="text-muted">Debug QR content:</small>
-                <div id="file-qr-result" style="color: teal;"> </div>
-                <small class="text-muted">Payload:</small>
-                <p id="payload" style="color: darkorchid;"></p>
-                <p id="error-msg" style="color: red;"></p>
+            <div class="row p-2">
+                <div class="col-md">
+                    <label class="btn btn-primary" for="file-selector">
+                        <input type="file" style="display:none" id="file-selector">
+                        Choose file
+                    </label>
+                
+                    <small class="text-muted" id="upload-file-info"></small>
+                </div>
+            </div>
+                
+                
+             <!-- debug prints 
+            <div class="row p-2">
+                <div class="col-sm">
+                    <small class="text-muted">Debug QR content:</small>
+                    <div id="file-qr-result" style="color: teal;"> </div>
+                </div>
+                <div class="col-sm">
+                    <small class="text-muted">Payload:</small>
+                    <p id="payload" style="color: darkorchid;"></p>
+                </div>
+            </div> -->
+            <div class="row p-2">
+                <div id="error-msg" role="alert"></div>
+            </div>
+
+            <div class="row p-2">
+                <div id="succ-msg" role="alert"></div>
             </div>
         
-            <div class="p-2">
+            <div class="row p-2">
                 <div class="max-vw-50" id="qrcode-canvas"></div>
+            </div>
+            <div>
                 <input type="button" class="btn btn-primary" style="display: none;" id="download" value="Download QR code">
             </div>
+            
         </div>
         
         
