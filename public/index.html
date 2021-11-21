@@ -21,11 +21,17 @@
             const qrCanvas = document.getElementById('qrcode-canvas')
             const errorMsg = document.getElementById('error-msg')
             const succMsg = document.getElementById('succ-msg')
+            const verifyButton = document.getElementById('verify')
+
+            // can an official list be found?
+            const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
+            
             
             import QrScanner from './lib/qr-scanner.min.js';
             QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
             
             var qrCode;
+            var dcc;
 
             // file scanning listener
             fileSelector.addEventListener('change', event => {
@@ -45,13 +51,10 @@
             async function optimize(/*label,*/ result) {
                 var qrString = String(result);
                 // decode of cose content into dcc constant
-                // should be used to check rules validity TO-DO
-                // also we can check if the certificate has valid signature
-                const dcc = await DCC.fromRaw(qrString);
-
-                
-                //if (qrString.substring(0, 4) === "HC1:"){
-                if (dcc){
+                // we also support signature verification
+                // could be used to check rules validity TO-DO
+                dcc = await DCC.fromRaw(qrString);
+                if (dcc) {
                     // debug print
                     //label.textContent = result;
                     
@@ -89,21 +92,55 @@
                     // show success message
                     succMsg.className = "alert alert-success";
                     succMsg.innerHTML = "QR has been correctly generated.";
-                    // appen qr rectangle to page and show download button
+                    // append qr rectangle to page and show download and sign verification buttons
                     qrCode.append(qrCanvas);
                     downloadButton.style.display = "block";
+                    verifyButton.style.display = "block";
                 }
-                else
+                else {
                     // show error message
+                    errorMsg.className ="alert alert-danger";
                     errorMsg.innerHTML = "Internal problems reading the QR code occurred.";
+                }      
             } 
 
-            // download listener for the donwload button
+            // download listener for the download button
             downloadButton.addEventListener('click', function() {
                 // download generated image as jpg with a random name
                 qrCode.download({ name: randomName(), extension: "jpeg"});
-                alert("New QR download has started.");
             }, false);
+
+            // fetch the key list and send it to the verify function
+            verifyButton.addEventListener('click', function() {
+                    fetch(TRUST_LIST_URL)
+                        .then(response => {
+                            if (response.ok)
+                                return response.json();
+                            else
+                                throw new Error('Fetching error');
+                        })
+                        .then(data => verifyFromList(data))
+                        .catch(error => {
+                            errorMsg.className = "alert alert-danger";
+                            errorMsg.innerHTML = "Cannot fetch keys list.";
+                        });
+
+            }, false);
+
+            // perform signature verification from a list of public keys
+            async function verifyFromList(keyList) {
+                var verified = await dcc.checkSignatureWithKeysList(keyList);
+                    
+                if (verified) {
+                    succMsg.className = "alert alert-info";
+                    succMsg.innerHTML = "Signature has been correctly verified.";
+                } else {
+                    succMsg.className = "alert alert-danger";
+                    succMsg.innerHTML = "Signature CANNOT be verified.";
+                }
+                    
+                //}
+            }
 
             // generate random filename
             function randomName() {
@@ -116,11 +153,12 @@
                 errorMsg.className = "";
                 succMsg.innerHTML = "";
                 succMsg.className= "";
+                //verifyButton.className = "";
+                verifyButton.style.display = "none";
                 downloadButton.style.display = "none";
                 //fileQrResult.innerHTML = "";
                 qrCanvas.innerHTML = "";
-                //document.getElementById('payload').innerHTML = "";
-                
+                //document.getElementById('payload').innerHTML = "";   
             }
 
             // error print
@@ -171,23 +209,28 @@
                     <p id="payload" style="color: darkorchid;"></p>
                 </div>
             </div> -->
+
             <div class="row p-2">
                 <div id="error-msg" role="alert"></div>
             </div>
 
             <div class="row p-2">
                 <div id="succ-msg" role="alert"></div>
-            </div>
+            </div>    
         
             <div class="row p-2">
                 <div class="max-vw-50" id="qrcode-canvas"></div>
             </div>
-            <div>
-                <input type="button" class="btn btn-primary" style="display: none;" id="download" value="Download QR code">
+            <div class="row p-2">
+                <div class="col-sm">
+                    <input type="button" class="btn btn-primary" style="display: none;" id="download" value="Download QR code">
+                </div>
+                <div class="col-sm">
+                    <input type="button" class="btn btn-success" style="display: none;" id="verify" value="Verify signature">
+                </div>
             </div>
-            
+                
         </div>
-        
         
     </body>
 </html>

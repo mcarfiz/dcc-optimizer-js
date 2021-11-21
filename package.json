@@ -1,8 +1,8 @@
 {
   "name": "qr-optimizer",
   "version": "1.0.0",
-  "description": "A Digital Green Covid Certificate QR optimizer.",
-  "main": "server.js",
+  "description": "A Digital Green Covid Certificate QR optimizer and verifier.",
+  "main": "main.js",
   "keywords": [],
   "author": "Marco Carfizzi, Giacomo Arrigo",
   "license": "ISC",

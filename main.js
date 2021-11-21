@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require('path');
 
-// electron stuff
+// create new application window
 function createWindow () {
     const win = new BrowserWindow({
         width: 500,
@@ -13,9 +13,12 @@ function createWindow () {
   })
 
     win.menuBarVisible = false
+    // debug console
+    //win.webContents.openDevTools()
     win.loadFile(path.join(__dirname, '/public/index.html'))
 }
 
+// on activation
 app.whenReady().then(() => {
     createWindow()
     app.on('activate', () => {
