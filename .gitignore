@@ -3,3 +3,4 @@ public/lib/.DS_Store
 public/libs/.DS_Store
 node_modules
 .DS_Store
+*.jpg
