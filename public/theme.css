@@ -6,3 +6,11 @@
 @media (prefers-color-scheme: light) {
     body { background: white; color: black; }
 }
+
+/* draggable region */
+body {
+    -webkit-app-region: drag;
+}
+.btn, a {
+    -webkit-app-region: no-drag;
+}
