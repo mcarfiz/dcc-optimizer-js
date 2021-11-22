@@ -75,7 +75,7 @@ async function optimize(/*label,*/ result) {
         // show success message
         succMsg.className = "alert alert-success";
         succMsg.innerHTML = "QR has been correctly generated.";
-        // append qr rectangle to page and show download and sign verification buttons
+        // append qr rectangle to page and show download and signature verification buttons
         qrCode.append(qrCanvas);
         downloadButton.style.display = "block";
         verifyButton.style.display = "block";
@@ -87,7 +87,7 @@ async function optimize(/*label,*/ result) {
     }      
 } 
 
-// download listener for the download button
+// on-click listener for the download button
 downloadButton.addEventListener('click', function() {
     // download generated image as jpg with a random name
     qrCode.download({ name: randomName(), extension: "jpeg"});
@@ -95,18 +95,18 @@ downloadButton.addEventListener('click', function() {
 
 // fetch the key list and send it to the verify function
 verifyButton.addEventListener('click', function() {
-        fetch(TRUST_LIST_URL)
-            .then(response => {
-                if (response.ok)
-                    return response.json();
-                else
-                    throw new Error('Fetching error');
-            })
-            .then(data => verifyFromList(data))
-            .catch(error => {
-                errorMsg.className = "alert alert-danger";
-                errorMsg.innerHTML = "Cannot fetch keys list.";
-            });
+    fetch(TRUST_LIST_URL)
+        .then(response => {
+            if (response.ok)
+                return response.json();
+            else
+                throw new Error('Fetching error');
+        })
+        .then(data => verifyFromList(data))
+        .catch(error => {
+            errorMsg.className = "alert alert-danger";
+            errorMsg.innerHTML = "Cannot fetch keys list.";
+        });
 
 }, false);
 
@@ -121,8 +121,6 @@ async function verifyFromList(keyList) {
         succMsg.className = "alert alert-danger";
         succMsg.innerHTML = "Signature CANNOT be verified.";
     }
-        
-    //}
 }
 
 // generate random filename
@@ -152,6 +150,6 @@ function error(msg) {
 
 // correctly print json as a string
 // otherwise only object [object] is printed
-function toString(object) {
+/*function toString(object) {
     return JSON.stringify(object, null, 4);
-}
+}*/

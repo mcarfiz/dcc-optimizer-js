@@ -4,13 +4,13 @@ const path = require('path');
 // create new application window
 function createWindow () {
     const win = new BrowserWindow({
-        width: 500,
+        width: 590,
         height: 700,
         titleBarStyle: "hidden",
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
-  })
+    })
 
     win.menuBarVisible = false
     // set color mode to follow system settings
