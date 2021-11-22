@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, nativeTheme } = require("electron");
 const path = require('path');
 
 // create new application window
@@ -13,9 +13,12 @@ function createWindow () {
   })
 
     win.menuBarVisible = false
+    // set color mode to follow system settings
+    nativeTheme.themeSource = 'system'
     // debug console
     //win.webContents.openDevTools()
     win.loadFile(path.join(__dirname, '/public/index.html'))
+    
 }
 
 // on activation
