@@ -1,14 +1,11 @@
 const fileSelector = document.getElementById('file-selector')
-//const fileQrResult = document.getElementById('file-qr-result')
 const downloadButton = document.getElementById('download')
 const qrCanvas = document.getElementById('qrcode-canvas')
 const errorMsg = document.getElementById('error-msg')
 const succMsg = document.getElementById('succ-msg')
 const verifyButton = document.getElementById('verify')
 
-// can an official list be found?
 const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
-
 
 import QrScanner from './lib/qr-scanner.min.js';
 QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
@@ -38,12 +35,6 @@ async function optimize(/*label,*/ result) {
     // could be used to check rules validity TO-DO
     dcc = await DCC.fromRaw(qrString);
     if (dcc) {
-        // debug print
-        //label.textContent = result;
-        
-        // debug print
-        //document.getElementById('payload').innerHTML = toString(dcc.payload);
-
         // remove health certificate version
         qrString = qrString.replace("HC1:", "");
 
@@ -134,12 +125,9 @@ function resetPage() {
     errorMsg.className = "";
     succMsg.innerHTML = "";
     succMsg.className= "";
-    //verifyButton.className = "";
     verifyButton.style.display = "none";
     downloadButton.style.display = "none";
-    //fileQrResult.innerHTML = "";
-    qrCanvas.innerHTML = "";
-    //document.getElementById('payload').innerHTML = "";   
+    qrCanvas.innerHTML = ""; 
 }
 
 // error print
@@ -147,9 +135,3 @@ function error(msg) {
     errorMsg.className = "alert alert-danger";
     errorMsg.innerHTML = msg;
 }
-
-// correctly print json as a string
-// otherwise only object [object] is printed
-/*function toString(object) {
-    return JSON.stringify(object, null, 4);
-}*/

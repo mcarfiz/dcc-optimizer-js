@@ -10,10 +10,10 @@ function createWindow () {
         titleBarOverlay: {
             color : '#0d6efd',
             symbolColor : '#000000'
-        },
+        }/*, // preload support
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
-        }
+        }*/
     })
 
     win.menuBarVisible = false
