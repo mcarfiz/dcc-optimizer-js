@@ -96,15 +96,22 @@ verifyButton.addEventListener('click', function () {
         .then(data => verifyFromList(data))
         .catch(error => {
             errorMsg.className = "alert alert-danger";
-            errorMsg.innerHTML = "Cannot fetch keys list.";
+            errorMsg.innerHTML = "An error occurred during verification step.";
         });
 
 }, false);
 
 // perform signature verification from a list of public keys
 async function verifyFromList(keyList) {
-    var verified = await dcc.checkSignatureWithKeysList(keyList);
-
+    // if the key is not found the verification must fail
+    try{
+        var verified = await dcc.checkSignatureWithKeysList(keyList);
+    }catch{
+        succMsg.className = "alert alert-danger";
+        succMsg.innerHTML = "Signature CANNOT be verified.";
+    }
+    
+    // if the key is found, then we check if the signature is ok or not
     if (verified) {
         succMsg.className = "alert alert-info";
         succMsg.innerHTML = "Signature has been correctly verified.";
