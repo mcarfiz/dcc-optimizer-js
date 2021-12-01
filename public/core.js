@@ -2,7 +2,7 @@ const fileSelector = document.getElementById('file-selector')
 const downloadButton = document.getElementById('download')
 const qrCanvas = document.getElementById('qrcode-canvas')
 const errorMsg = document.getElementById('error-msg')
-const succMsg = document.getElementById('succ-msg')
+const resMsg = document.getElementById('result-msg')
 const verifyButton = document.getElementById('verify')
 
 const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
@@ -64,8 +64,8 @@ async function optimize(/*label,*/ result) {
         });
 
         // show success message
-        succMsg.className = "alert alert-success";
-        succMsg.innerHTML = "QR has been correctly generated.";
+        resMsg.className = "alert alert-success";
+        resMsg.innerHTML = "QR has been correctly generated.";
         // append qr rectangle to page and show download and signature verification buttons
         qrCode.append(qrCanvas);
         downloadButton.style.display = "flex";
@@ -107,17 +107,17 @@ async function verifyFromList(keyList) {
     try{
         var verified = await dcc.checkSignatureWithKeysList(keyList);
     }catch{
-        succMsg.className = "alert alert-danger";
-        succMsg.innerHTML = "Signature CANNOT be verified.";
+        resMsg.className = "alert alert-danger";
+        resMsg.innerHTML = "Signature CANNOT be verified.";
     }
     
     // if the key is found, then we check if the signature is ok or not
     if (verified) {
-        succMsg.className = "alert alert-info";
-        succMsg.innerHTML = "Signature has been correctly verified.";
+        resMsg.className = "alert alert-info";
+        resMsg.innerHTML = "Signature has been correctly verified.";
     } else {
-        succMsg.className = "alert alert-danger";
-        succMsg.innerHTML = "Signature CANNOT be verified.";
+        resMsg.className = "alert alert-danger";
+        resMsg.innerHTML = "Signature CANNOT be verified.";
     }
 }
 
@@ -130,8 +130,8 @@ function randomName() {
 function resetPage() {
     errorMsg.innerHTML = "";
     errorMsg.className = "";
-    succMsg.innerHTML = "";
-    succMsg.className = "";
+    resMsg.innerHTML = "";
+    resMsg.className = "";
     verifyButton.style.display = "none";
     downloadButton.style.display = "none";
     qrCanvas.innerHTML = "";
