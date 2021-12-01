@@ -68,24 +68,24 @@ async function optimize(/*label,*/ result) {
         succMsg.innerHTML = "QR has been correctly generated.";
         // append qr rectangle to page and show download and signature verification buttons
         qrCode.append(qrCanvas);
-        downloadButton.style.display = "block";
-        verifyButton.style.display = "block";
+        downloadButton.style.display = "flex";
+        verifyButton.style.display = "flex";
     }
     else {
         // show error message
-        errorMsg.className ="alert alert-danger";
+        errorMsg.className = "alert alert-danger";
         errorMsg.innerHTML = "Internal problems reading the QR code occurred.";
-    }      
-} 
+    }
+}
 
 // on-click listener for the download button
-downloadButton.addEventListener('click', function() {
+downloadButton.addEventListener('click', function () {
     // download generated image as jpg with a random name
-    qrCode.download({ name: randomName(), extension: "jpeg"});
+    qrCode.download({ name: randomName(), extension: "jpeg" });
 }, false);
 
 // fetch the key list and send it to the verify function
-verifyButton.addEventListener('click', function() {
+verifyButton.addEventListener('click', function () {
     fetch(TRUST_LIST_URL)
         .then(response => {
             if (response.ok)
@@ -104,7 +104,7 @@ verifyButton.addEventListener('click', function() {
 // perform signature verification from a list of public keys
 async function verifyFromList(keyList) {
     var verified = await dcc.checkSignatureWithKeysList(keyList);
-        
+
     if (verified) {
         succMsg.className = "alert alert-info";
         succMsg.innerHTML = "Signature has been correctly verified.";
@@ -116,7 +116,7 @@ async function verifyFromList(keyList) {
 
 // generate random filename
 function randomName() {
-    return "QR-" + Math.round(Math.random() * 10000 + Math.random()*1000);
+    return "QR-" + Math.round(Math.random() * 10000 + Math.random() * 1000);
 }
 
 // flush errors and previous prints
@@ -124,10 +124,10 @@ function resetPage() {
     errorMsg.innerHTML = "";
     errorMsg.className = "";
     succMsg.innerHTML = "";
-    succMsg.className= "";
+    succMsg.className = "";
     verifyButton.style.display = "none";
     downloadButton.style.display = "none";
-    qrCanvas.innerHTML = ""; 
+    qrCanvas.innerHTML = "";
 }
 
 // error print

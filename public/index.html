@@ -34,13 +34,14 @@
             DGCC QR optimizer
         </a>
     </nav>
-
-    <div class="rowd-flex flex-column mx-auto" style="width: 85%;">
-        <div class="row p-2">
-            <h3>Upload your QR Covid Certificate:</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md" style="margin: auto;; margin-top: 4%; ">
+                <h3>Upload your QR Covid Certificate:</h3>
+            </div>
         </div>
-        <div class="row p-2">
-            <div class="col-md">
+        <div class="row">
+            <div class="col-md" style="margin: auto; margin-top: 2%;">
                 <label class="btn btn-primary" for="file-selector">
                     <input type="file" style="display:none" id="file-selector">
                     Choose file
@@ -50,28 +51,33 @@
             </div>
         </div>
 
-        <div class="row p-2">
-            <div id="error-msg" role="alert"></div>
-        </div>
-
-        <div class="row p-2">
-            <div id="succ-msg" role="alert"></div>
-        </div>
-
-        <div class="row p-2">
-            <div class="max-vw-50" id="qrcode-canvas"></div>
-        </div>
-        <div class="row p-2">
-            <div class="col-sm">
-                <input type="button" class="btn btn-primary" style="display: none;" id="download"
-                    value="Download QR code">
+        <div class="row">
+            <div class="col-md" style="width: 75%; margin:auto; margin-top: 2%;">
+                <div id="error-msg" role="alert"></div>
             </div>
-            <div class="col-sm">
-                <input type="button" class="btn btn-success" style="display: none;" id="verify"
+        </div>
+
+        <div class="row" style="margin: auto;">
+            <div class="col-md" style="margin-top: 2%;">
+                <div id="succ-msg" role="alert"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md" style="margin: auto;margin-top: 2%;">
+                <div class="max-vw-50" id="qrcode-canvas"></div>
+            </div>
+        </div>
+        <div class="row justify-content-center" style="margin: auto; margin-top: 4%;">
+            <div class="col-md" style="margin: auto;"">
+                <input type=" button" class="btn btn-primary" style="display: none; margin-bottom: 3%;" id="download"
+                value="Download QR code">
+            </div>
+            <div class="col-md" style="margin: auto;">
+                <input type="button" class="btn btn-success" style="display: none; margin-bottom: 3%;" id="verify"
                     value="Verify signature">
             </div>
         </div>
-
     </div>
 
 </body>
