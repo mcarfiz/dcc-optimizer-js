@@ -7,21 +7,25 @@ const verifyButton = document.getElementById('verify')
 
 const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
 
-import QrScanner from './lib/qr-scanner.min.js';
+import QrScanner from './lib/qr-scanner.js';
 QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
 
 var qrCode;
 var dcc;
+var qrEngine;
+
+$(document).ready(function(){
+    qrEngine = QrScanner.createQrEngine();
+});
 
 // file scanning listener
 fileSelector.addEventListener('change', event => {
     resetPage();
-    // https://blog.minhazav.dev/research/html5-qrcode.html#scan-using-file better library to read everything?
     const file = fileSelector.files[0];
     if (!file) return;
     document.getElementById('upload-file-info').innerHTML = file.name;
     // scan qr from file
-    QrScanner.scanImage(file)
+    QrScanner.scanImage(file, null, qrEngine)
         .then(result => optimize(/*fileQrResult, */result))
         .catch(e => error(e || 'No QR code found.'));
 });
@@ -31,8 +35,6 @@ fileSelector.addEventListener('change', event => {
 async function optimize(/*label,*/ result) {
     var qrString = String(result);
     // decode of cose content into dcc constant
-    // we also support signature verification
-    // could be used to check rules validity TO-DO
     dcc = await DCC.fromRaw(qrString);
     if (dcc) {
         // remove health certificate version
@@ -73,15 +75,14 @@ async function optimize(/*label,*/ result) {
     }
     else {
         // show error message
-        errorMsg.className = "alert alert-danger";
-        errorMsg.innerHTML = "Internal problems reading the QR code occurred.";
+        error("Internal problems reading the QR code occurred.");
     }
 }
 
 // on-click listener for the download button
 downloadButton.addEventListener('click', function () {
     // download generated image as jpg with a random name
-    qrCode.download({ name: randomName(), extension: "jpeg" });
+    qrCode.download({ name: "QR-Optimized", extension: "jpeg" });
 }, false);
 
 // fetch the key list and send it to the verify function
@@ -119,11 +120,6 @@ async function verifyFromList(keyList) {
         resMsg.className = "alert alert-danger";
         resMsg.innerHTML = "Signature CANNOT be verified.";
     }
-}
-
-// generate random filename
-function randomName() {
-    return "QR-" + Math.round(Math.random() * 10000 + Math.random() * 1000);
 }
 
 // flush errors and previous prints
