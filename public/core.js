@@ -13,9 +13,22 @@ QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
 var qrCode;
 var dcc;
 var qrEngine;
+var keyListJson;
 
 $(document).ready(function(){
     qrEngine = QrScanner.createQrEngine();
+    fetch(TRUST_LIST_URL)
+    .then(response => {
+        if (response.ok)
+            return response.json();
+        else
+            throw new Error('Fetching error');
+    })
+    .then(data => keyListJson = data)
+    .catch(error => {
+        errorMsg.className = "alert alert-danger";
+        errorMsg.innerHTML = "An error occurred during the public-key list pre-fetching step.";
+    });
 });
 
 // file scanning listener
@@ -88,18 +101,12 @@ downloadButton.addEventListener('click', function () {
 
 // fetch the key list and send it to the verify function
 verifyButton.addEventListener('click', function () {
-    fetch(TRUST_LIST_URL)
-        .then(response => {
-            if (response.ok)
-                return response.json();
-            else
-                throw new Error('Fetching error');
-        })
-        .then(data => verifyFromList(data))
-        .catch(error => {
-            errorMsg.className = "alert alert-danger";
-            errorMsg.innerHTML = "An error occurred during verification step.";
-        });
+
+    verifyFromList(keyListJson)
+    .catch(error => {
+        errorMsg.className = "alert alert-danger";
+        errorMsg.innerHTML = "An error occurred during the verification step.";
+    });
 
 }, false);
 
@@ -108,7 +115,8 @@ async function verifyFromList(keyList) {
     // if the key is not found the verification must fail
     try{
         var verified = await dcc.checkSignatureWithKeysList(keyList);
-    }catch{
+    }
+    catch{
         resMsg.className = "alert alert-danger";
         resMsg.innerHTML = "Signature CANNOT be verified.";
     }
