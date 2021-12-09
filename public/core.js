@@ -38,7 +38,8 @@ async function optimize(/*label,*/ result) {
     dcc = await DCC.fromRaw(qrString);
     if (dcc) {
         // remove health certificate version
-        qrString = qrString.replace("HC1:", "");
+        if (document.getElementById('radio-it').checked)
+            qrString = qrString.replace("HC1:", "");
 
         // generate new qr code
         // documentation: https://github.com/kozakdenys/qr-code-styling
