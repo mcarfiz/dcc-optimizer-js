@@ -4,6 +4,7 @@ const qrCanvas = document.getElementById('qrcode-canvas')
 const errorMsg = document.getElementById('error-msg')
 const resMsg = document.getElementById('result-msg')
 const verifyButton = document.getElementById('verify')
+const radios = document.getElementById('radios')
 
 const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
 
@@ -32,15 +33,18 @@ $(document).ready(function(){
 });
 
 // file scanning listener
-fileSelector.addEventListener('change', event => {
-    resetPage();
-    const file = fileSelector.files[0];
-    if (!file) return;
-    document.getElementById('upload-file-info').innerHTML = file.name;
-    // scan qr from file
-    QrScanner.scanImage(file, null, qrEngine)
-        .then(result => optimize(/*fileQrResult, */result))
-        .catch(e => error(e || 'No QR code found.'));
+[fileSelector, radios].forEach(function(element){
+    element.addEventListener('change', event => {
+        resetPage();
+        const file = fileSelector.files[0];
+        if (!file) return;
+        let img = new Image();
+        img.src = file.path;
+        // scan qr from image
+        QrScanner.scanImage(img, null, qrEngine)
+            .then(result => optimize(/*fileQrResult, */result))
+            .catch(e => error(e || 'No QR code found.'));
+    });
 });
 
 
