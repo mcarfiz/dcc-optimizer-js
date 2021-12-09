@@ -38,10 +38,8 @@ $(document).ready(function(){
         resetPage();
         const file = fileSelector.files[0];
         if (!file) return;
-        let img = new Image();
-        img.src = file.path;
         // scan qr from image
-        QrScanner.scanImage(img, null, qrEngine)
+        QrScanner.scanImage(file, null, qrEngine)
             .then(result => optimize(/*fileQrResult, */result))
             .catch(e => error(e || 'No QR code found.'));
     });
