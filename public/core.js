@@ -5,7 +5,7 @@ const errorMsg = document.getElementById('error-msg')
 const resMsg = document.getElementById('result-msg')
 const verifyButton = document.getElementById('verify')
 const radios = document.getElementById('radios')
-const cameraBtn = document.getElementById("qrcamera-btn");
+const cameraBtn = document.getElementById('qrcamera-btn')
 
 const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
 
@@ -36,6 +36,13 @@ $(document).ready(function () {
         });
 });
 
+function revertScan(){
+    cameraBtn.className = "btn btn-success";
+    cameraBtn.value = "Scan QR with camera";
+    try{html5QrcodeScanner.stop();}
+    catch(error){}
+}
+
 // file scanning listener
 [fileSelector, radios].forEach(function (element) {
     element.addEventListener('change', event => {
@@ -50,33 +57,26 @@ $(document).ready(function () {
 });
 
 fileSelector.addEventListener("click", event =>{
-    html5QrcodeScanner.stop().then((ignore) => {
-        html5QrcodeScanner.clear();
-    }).catch((err) => {
-        console.log(err);
-        error(err);
-    });
-    cameraBtn.style.display="flex";
+    revertScan();
 });
 
 // camera button listener to activate the camera scanner
 cameraBtn.addEventListener("click", function (element) {
-    cameraBtn.style.display = "none";
     resetPage();
-    // prefer back camera
-    html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess);
+    fileSelector.value = null;
+    if (cameraBtn.className == "btn btn-success"){
+        cameraBtn.className = "btn btn-danger";
+        cameraBtn.value = "Stop scanning";
+        html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess);
+    }
+    else
+        revertScan();
 });
 
 // when a qr is successfully scanned
 async function onScanSuccess(decodedText) {
-    html5QrcodeScanner.stop().then((ignore) => {
-        html5QrcodeScanner.clear();
-    }).catch((err) => {
-        console.log(err);
-        error(err);
-    });
+    revertScan();
     optimize(decodedText);
-    cameraBtn.style.display = "flex";
 }
 
 // optimize function called if the file scan was ok
@@ -119,8 +119,8 @@ async function optimize(/*label,*/ result) {
         resMsg.innerHTML = "QR has been correctly generated.";
         // append qr rectangle to page and show download and signature verification buttons
         qrCode.append(qrCanvas);
-        downloadButton.style.display = "flex";
-        verifyButton.style.display = "flex";
+        downloadButton.style.display = "table";
+        // verifyButton.style.display = "table";
     }
     else {
         // show error message
