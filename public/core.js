@@ -20,7 +20,7 @@ var qrCode;
 var dcc;
 var qrEngine;
 var keyListJson;
-var file;
+var text;
 
 $(document).ready(function () {
     qrEngine = QrScanner.createQrEngine();
@@ -37,25 +37,24 @@ $(document).ready(function () {
         });
 });
 
-function revertScan(){
-    cameraBtn.className = "btn btn-success";
-    cameraBtn.value = "Scan QR with camera";
-    try{html5QrcodeScanner.stop();}
-    catch(error){}
-}
+fileSelector.addEventListener('change', event => {
+    var file = fileSelector.files[0];
+    if (!file) return;
+    resetPage();
+    // scan qr from image
+    QrScanner.scanImage(file, null, qrEngine)
+        .then(result => {
+            text = result;
+            optimize(/*fileQrResult, */text)
+        })
+        .catch(e => error(e || 'No QR code found.'));
+});
 
-// file scanning listener
-[fileSelector, radios].forEach(function (element) {
-    element.addEventListener('change', event => {
-        var new_file = fileSelector.files[0];
-        if (!new_file) return;
-        resetPage();
-        file = new_file;
-        // scan qr from image
-        QrScanner.scanImage(file, null, qrEngine)
-            .then(result => optimize(/*fileQrResult, */result))
-            .catch(e => error(e || 'No QR code found.'));
-    });
+radios.addEventListener('change', event => {
+    resetPage();
+    if (!text) return;
+    // scan qr from image
+    optimize(/*fileQrResult, */text);
 });
 
 fileSelector.addEventListener("click", event =>{
@@ -77,7 +76,15 @@ cameraBtn.addEventListener("click", function (element) {
 async function onScanSuccess(decodedText) {
     revertScan();
     resetPage();
-    optimize(decodedText);
+    text = decodedText;
+    optimize(text);
+}
+
+function revertScan(){
+    cameraBtn.className = "btn btn-success";
+    cameraBtn.value = "Scan QR with camera";
+    try{html5QrcodeScanner.stop();}
+    catch(error){}
 }
 
 // optimize function called if the file scan was ok
