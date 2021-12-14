@@ -49,6 +49,16 @@ $(document).ready(function () {
     });
 });
 
+fileSelector.addEventListener("click", event =>{
+    html5QrcodeScanner.stop().then((ignore) => {
+        html5QrcodeScanner.clear();
+    }).catch((err) => {
+        console.log(err);
+        error(err);
+    });
+    cameraBtn.style.display="flex";
+});
+
 // camera button listener to activate the camera scanner
 cameraBtn.addEventListener("click", function (element) {
     cameraBtn.style.display = "none";
@@ -58,7 +68,7 @@ cameraBtn.addEventListener("click", function (element) {
 });
 
 // when a qr is successfully scanned
-async function onScanSuccess(decodedText, decodedResult) {
+async function onScanSuccess(decodedText) {
     html5QrcodeScanner.stop().then((ignore) => {
         html5QrcodeScanner.clear();
     }).catch((err) => {
