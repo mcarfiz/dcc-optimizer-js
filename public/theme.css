@@ -1,14 +1,14 @@
 /* dark and light mode settings */
 @media (prefers-color-scheme: dark) {
-    body, .offcanvas { background: #333; color: white; }
+    body, .offcanvas, .card { background: #333; color: white; }
 }
   
 @media (prefers-color-scheme: light) {
-    body, .offcanvas { background: white; color: black; }
+    body, .offcanvas, .card { background: white; color: black; }
 }
 
 /* draggable region */
-.btn, a, body {
+.btn, a, body, .offcanvas {
     -webkit-app-region: no-drag;
 }
 
