@@ -64,9 +64,14 @@ fileSelector.addEventListener("click", event =>{
 // camera button listener to activate the camera scanner
 cameraBtn.addEventListener("click", function (element) {
     if (cameraBtn.className == "btn btn-success"){
-        cameraBtn.className = "btn btn-danger";
-        cameraBtn.value = "Stop scanning";
-        html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess);
+        html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess)
+        .then(success => {
+            cameraBtn.className = "btn btn-danger";
+            cameraBtn.value = "Stop scanning";
+        })
+        .catch(err => {
+            error("No camera was found.");
+        });
     }
     else
         revertScan();
