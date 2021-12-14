@@ -34,31 +34,49 @@
     <div class="offcanvas offcanvas-start w-50" tabindex="-1" id="sidenav" aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasLabel">Menu</h5>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <button id="close-btn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div class="row card" style="height: 10%;">
                 <div class="card-body">
-                    <a href="#">Home</a>
+                    <a href="index.html">Home</a>
                 </div>
             </div>
-            <div class="row card" style="height: 10%;">
+            <div id="faq-card" class="row card" style="height: 10%;">
                 <div class="card-body">
-                    <a href="faq.html">FAQ</a>
+                    <a id="faq" role="button" data-bs-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq">FAQ</a>
                 </div>
             </div>
         </div>
       </div>
 
     <!-- navbar -->
-    <nav class="navbar navbar-dark bg-primary" style="padding-top: 20px;">
+    <nav class="navbar navbar-dark bg-primary" style="padding-top: 20px;" aria-labelledby="navLabel">
         <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#sidenav" role="button">
             <span class="navbar-toggler-icon"></span>
         </button>
-        DGCC QR optimizer
+        <h5 id="navLabel">DGCC QR optimizer</h5>
     </nav>
 
-    <div class="rowd-flex flex-column mx-auto" style="width: 85%;">
+    <div class="collapse" id="collapseFaq">
+        <div class="row p-2">
+            <h3>FAQ</h3>
+        </div>
+
+
+        <div>
+            <ol>
+                <li><b>DOMANDA</b>: Il sito è sicuro? Cosa succede al mio green pass?</li>
+                <b>RISPOSTA</b>: Il sito è sviluppato in JavaScript, una tecnologia che permette di elaborare il green
+                pass nel browser senza inviare dati sulla rete. L’applicazione non invia o salva il contenuto del green
+                pass in nessun modo.
+                <li><b>DOMANDA</b>: lorem ipsum</li>
+                <b>RISPOSTA</b>: lorem ipsum2
+            </ol>
+        </div>
+    </div>
+
+    <div id="main-container" class="rowd-flex flex-column mx-auto" style="width: 85%;">
         <div class="row p-2">
             <h3>Provide your QR Covid Certificate:</h3>
         </div>

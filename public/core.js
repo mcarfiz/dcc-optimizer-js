@@ -166,6 +166,14 @@ async function verifyFromList(keyList) {
     }
 }
 
+// faq sidenav click
+document.getElementById("faq").addEventListener("click", function(){  
+        document.getElementById("close-btn").click();
+        document.getElementById("main-container").style.display = "none";
+        document.getElementById("faq-card").style.display= "none";
+        document.getElementById("navLabel").innerHTML = "Frequently Asked Questions"
+}, false);
+
 // flush errors and previous prints
 function resetPage() {
     errorMsg.innerHTML = "";
