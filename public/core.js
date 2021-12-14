@@ -5,35 +5,39 @@ const errorMsg = document.getElementById('error-msg')
 const resMsg = document.getElementById('result-msg')
 const verifyButton = document.getElementById('verify')
 const radios = document.getElementById('radios')
+const cameraBtn = document.getElementById("qrcamera-btn");
 
 const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
 
 import QrScanner from './lib/qr-scanner.js';
 QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
 
+// camera scan setup
+var html5QrcodeScanner = new Html5Qrcode(/* element id */ "reader");
+var config = { fps: 10, qrbox: { width: document.getElementById('reader').clientWidth * 0.75, height: document.getElementById('reader').clientHeigth * 0.75 } };
+
 var qrCode;
 var dcc;
 var qrEngine;
 var keyListJson;
 
-$(document).ready(function(){
+$(document).ready(function () {
     qrEngine = QrScanner.createQrEngine();
     fetch(TRUST_LIST_URL)
-    .then(response => {
-        if (response.ok)
-            return response.json();
-        else
-            throw new Error('Fetching error');
-    })
-    .then(data => keyListJson = data)
-    .catch(error => {
-        errorMsg.className = "alert alert-danger";
-        errorMsg.innerHTML = "An error occurred during the public-key list pre-fetching step.";
-    });
+        .then(response => {
+            if (response.ok)
+                return response.json();
+            else
+                throw new Error('Fetching error');
+        })
+        .then(data => keyListJson = data)
+        .catch(error => {
+            error("An error occurred during the public-key list pre-fetching step.");
+        });
 });
 
 // file scanning listener
-[fileSelector, radios].forEach(function(element){
+[fileSelector, radios].forEach(function (element) {
     element.addEventListener('change', event => {
         resetPage();
         const file = fileSelector.files[0];
@@ -45,6 +49,25 @@ $(document).ready(function(){
     });
 });
 
+// camera button listener to activate the camera scanner
+cameraBtn.addEventListener("click", function (element) {
+    cameraBtn.style.display = "none";
+    resetPage();
+    // prefer back camera
+    html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess);
+});
+
+// when a qr is successfully scanned
+async function onScanSuccess(decodedText, decodedResult) {
+    html5QrcodeScanner.stop().then((ignore) => {
+        html5QrcodeScanner.clear();
+    }).catch((err) => {
+        console.log(err);
+        error(err);
+    });
+    optimize(decodedText);
+    cameraBtn.style.display = "flex";
+}
 
 // optimize function called if the file scan was ok
 async function optimize(/*label,*/ result) {
@@ -105,24 +128,24 @@ downloadButton.addEventListener('click', function () {
 verifyButton.addEventListener('click', function () {
 
     verifyFromList(keyListJson)
-    .catch(error => {
-        errorMsg.className = "alert alert-danger";
-        errorMsg.innerHTML = "An error occurred during the verification step.";
-    });
+        .catch(error => {
+            errorMsg.className = "alert alert-danger";
+            errorMsg.innerHTML = "An error occurred during the verification step.";
+        });
 
 }, false);
 
 // perform signature verification from a list of public keys
 async function verifyFromList(keyList) {
     // if the key is not found the verification must fail
-    try{
+    try {
         var verified = await dcc.checkSignatureWithKeysList(keyList);
     }
-    catch{
+    catch {
         resMsg.className = "alert alert-danger";
         resMsg.innerHTML = "Signature CANNOT be verified.";
     }
-    
+
     // if the key is found, then we check if the signature is ok or not
     if (verified) {
         resMsg.className = "alert alert-info";

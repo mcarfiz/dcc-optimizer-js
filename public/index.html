@@ -21,6 +21,7 @@
 </head>
 
 <body>
+    <script type="text/javascript" src="./lib/html5-qrcode.min.js"></script>
     <script type="text/javascript" src="./lib/qr-code-styling.js"></script>
     <!-- build via browserify dcc.js --standalone DCC > dcc-browser.js -->
     <script type="module" src="./lib/dcc-browser.js"></script>
@@ -40,16 +41,21 @@
         <div class="row p-2">
             <h3>Provide your QR Covid Certificate:</h3>
         </div>
-        <div class="row p-2">
-            <div class="col-md">
-                <label class="btn btn-primary" for="file-selector">
-                    <input type="file" style="display:none" id="file-selector" accept="image/*">
-                    Choose file
-                </label>
-                <small class="text-muted" id="upload-file-info"></small>
-            </div>
+        <div class="row p-2" id="file-picker">
+            <label class="btn btn-primary" for="file-selector">
+                <!--  accept="image/*" -->
+                <input type="file" style="display:none" id="file-selector">
+                Choose file
+            </label>
+            <small class="text-muted" id="upload-file-info"></small>
         </div>
-        <div id="radios">
+
+        <div class="row p-2">
+            <input type="button" class="btn btn-success" id="qrcamera-btn" value="Scan QR with camera">
+        </div>
+        <div id="reader"></div>
+
+        <div id="radios" style="margin-top: 1%;">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio-eu">
                 <label class="form-check-label" for="radio-eu">
@@ -63,6 +69,7 @@
                 </label>
             </div>
         </div>
+
         <div class="row p-2" style="margin-left: auto;">
             <div id="error-msg" role="alert"></div>
         </div>
