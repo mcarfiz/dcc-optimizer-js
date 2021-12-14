@@ -20,6 +20,7 @@ var qrCode;
 var dcc;
 var qrEngine;
 var keyListJson;
+var file;
 
 $(document).ready(function () {
     qrEngine = QrScanner.createQrEngine();
@@ -46,9 +47,10 @@ function revertScan(){
 // file scanning listener
 [fileSelector, radios].forEach(function (element) {
     element.addEventListener('change', event => {
+        var new_file = fileSelector.files[0];
+        if (!new_file) return;
         resetPage();
-        const file = fileSelector.files[0];
-        if (!file) return;
+        file = new_file;
         // scan qr from image
         QrScanner.scanImage(file, null, qrEngine)
             .then(result => optimize(/*fileQrResult, */result))
@@ -62,8 +64,6 @@ fileSelector.addEventListener("click", event =>{
 
 // camera button listener to activate the camera scanner
 cameraBtn.addEventListener("click", function (element) {
-    resetPage();
-    fileSelector.value = null;
     if (cameraBtn.className == "btn btn-success"){
         cameraBtn.className = "btn btn-danger";
         cameraBtn.value = "Stop scanning";
@@ -76,6 +76,7 @@ cameraBtn.addEventListener("click", function (element) {
 // when a qr is successfully scanned
 async function onScanSuccess(decodedText) {
     revertScan();
+    resetPage();
     optimize(decodedText);
 }
 
