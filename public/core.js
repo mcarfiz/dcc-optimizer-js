@@ -138,6 +138,7 @@ document.getElementById("faq").addEventListener("click", function(){
         document.getElementById("main-container").style.display = "none";
         document.getElementById("faq-card").style.display= "none";
         document.getElementById("navLabel").innerHTML = "Frequently Asked Questions"
+        revertScan();
 }, false);
 
 // advanced faq toggle

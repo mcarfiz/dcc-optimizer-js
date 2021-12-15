@@ -49,6 +49,16 @@
                         aria-controls="collapseFaq">FAQ</a>
                 </div>
             </div>
+            <div class="row card" style="height: 10%;">
+                <div class="card-body">
+                    <label id="lang-label">Choose language:</label>
+                    <select id="lang-picker" class="form-select" style="width: min-content;"
+                        aria-labelledby="lang-label" aria-expanded="false">
+                        <option selected>English</option>
+                        <option value="1">Italiano</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -101,47 +111,55 @@
 
                     <ul>
                         <li>
-                        <b>Selezione file:</b> Per caricare l'immagine del QR Code dal file system viene usata la
-                        libreria <a href="https://github.com/nimiq/qr-scanner" target="_blank">Qr-Scanner</a>.
-                        Nel caso del caricamento manuale di un file, JavaScript necessita la creazione di un oggetto URL
-                        per poter accedere all'immagine fornita dall'utente; questo processo è considerato da alcuni
-                        browser una richiesta di rete,
-                        come riportato nella seguente immagine di esempio:
-                        <br><img src="./img/local_request.png"><br>
-                        Ciònonostante, questa richiesta non viene inviata effettivamente sulla rete e ne è prova il
-                        fatto che la generazione può essere effettuata offline e che la richiesta non presenta un
-                        indirizzo remoto
-                        come nella seguente immagine di esempio:
-                        <br><img src="./img/network_request.png"><br>
+                            <b>Selezione file:</b> Per caricare l'immagine del QR Code dal file system viene usata la
+                            libreria <a href="https://github.com/nimiq/qr-scanner" target="_blank">Qr-Scanner</a>.
+                            Nel caso del caricamento manuale di un file, JavaScript necessita la creazione di un oggetto
+                            URL
+                            per poter accedere all'immagine fornita dall'utente; questo processo è considerato da alcuni
+                            browser una richiesta di rete,
+                            come riportato nella seguente immagine di esempio:
+                            <br><img src="./img/local_request.png"><br>
+                            Ciònonostante, questa richiesta non viene inviata effettivamente sulla rete e ne è prova il
+                            fatto che la generazione può essere effettuata offline e che la richiesta non presenta un
+                            indirizzo remoto
+                            come nella seguente immagine di esempio:
+                            <br><img src="./img/network_request.png"><br>
                         </li>
                     </ul>
 
                     <ul>
                         <li>
-                        <b>Scansione QR:</b> Per scansionare il QR Code viene usata la libreria
-                        <a href="https://www.npmjs.com/package/html5-qrcode" target="_blank">Html5-QRCode</a>. A
-                        differenza
-                        della libreria precedente, questa permette a JavaScript di leggere il contenuto dell'immagine
-                        direttamente
-                        dallo stream MediaStream, evitando la creazione di un oggetto blob e il conseguente URL che in
-                        alcuni casi
-                        viene considerato come richiesta di rete.
+                            <b>Scansione QR:</b> Per scansionare il QR Code viene usata la libreria
+                            <a href="https://www.npmjs.com/package/html5-qrcode" target="_blank">Html5-QRCode</a>. A
+                            differenza
+                            della libreria precedente, questa permette a JavaScript di leggere il contenuto
+                            dell'immagine
+                            direttamente
+                            dallo stream MediaStream, evitando la creazione di un oggetto blob e il conseguente URL che
+                            in
+                            alcuni casi
+                            viene considerato come richiesta di rete.
                         </li>
                     </ul>
 
                     <ul>
                         <li>
-                        <b>Generazione del QR Code</b> Per decodificare il contenuto del QR Code originale viene usata
-                        la libreria
-                        <a href="https://github.com/ministero-salute/dcc-utils" target="_blank">DCC-Utils</a>, mentre
-                        per la
-                        generazione del nuovo QR Code viene usata la libreria <a
-                            href="https://github.com/kozakdenys/qr-code-styling" target="_blank">QR-Code-Styling</a>.
-                        Una volta effettuata la decodifica, il contenuto viene passato senza alcuna modifica al generatore di QR, che lo
-                        trasforma nel nuovo QR Code
-                        usando come parametro di correzione dell'errore il valore "L", risultante in una minore densità
-                        del QR Code rispetto
-                        al valore originale "M".
+                            <b>Generazione del QR Code</b> Per decodificare il contenuto del QR Code originale viene
+                            usata
+                            la libreria
+                            <a href="https://github.com/ministero-salute/dcc-utils" target="_blank">DCC-Utils</a>,
+                            mentre
+                            per la
+                            generazione del nuovo QR Code viene usata la libreria <a
+                                href="https://github.com/kozakdenys/qr-code-styling"
+                                target="_blank">QR-Code-Styling</a>.
+                            Una volta effettuata la decodifica, il contenuto viene passato senza alcuna modifica al
+                            generatore di QR, che lo
+                            trasforma nel nuovo QR Code
+                            usando come parametro di correzione dell'errore il valore "L", risultante in una minore
+                            densità
+                            del QR Code rispetto
+                            al valore originale "M".
                         </li>
                     </ul>
 
