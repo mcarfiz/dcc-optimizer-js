@@ -21,6 +21,7 @@ var dcc;
 var qrEngine;
 var keyListJson;
 var text;
+var show_faq = false;
 
 $(document).ready(function () {
     qrEngine = QrScanner.createQrEngine();
@@ -186,6 +187,20 @@ document.getElementById("faq").addEventListener("click", function(){
         document.getElementById("faq-card").style.display= "none";
         document.getElementById("navLabel").innerHTML = "Frequently Asked Questions"
 }, false);
+
+// advanced faq toggle
+$("#advanced-faq-btn").click(function(){
+    $("#advanced-faq-1").toggle("slow");
+    $("#advanced-faq-2").toggle("slow");
+    if (show_faq){
+        $("#advanced-faq-btn").text("Mostra informazioni avanzate");
+        show_faq = false;
+    }
+    else{
+        $("#advanced-faq-btn").text("Nascondi informazioni avanzate");
+        show_faq = true;
+    }
+});
 
 // flush errors and previous prints
 function resetPage() {

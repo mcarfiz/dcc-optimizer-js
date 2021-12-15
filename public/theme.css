@@ -15,3 +15,7 @@
 nav {
     -webkit-app-region: drag;
 }
+
+li:not(:first-of-type){
+    margin-top: 1.5em;
+}

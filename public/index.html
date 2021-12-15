@@ -66,13 +66,34 @@
 
         <div>
             <ol>
-                <li><b>DOMANDA</b>: Il sito è sicuro? Cosa succede al mio green pass?</li>
-                <b>RISPOSTA</b>: Il sito è sviluppato in JavaScript, una tecnologia che permette di elaborare il green
-                pass nel browser senza inviare dati sulla rete. L’applicazione non invia o salva il contenuto del green
-                pass in nessun modo.
-                <li><b>DOMANDA</b>: lorem ipsum</li>
-                <b>RISPOSTA</b>: lorem ipsum2
+                <li><b>DOMANDA</b>: Cosa posso fare in questo sito?</li>
+                <b>RISPOSTA</b>: Questo sito permette di rigenerare il QR Code contenente il Green Pass in modo tale che sia
+                meno denso e di conseguenza più leggibile dalle app di verifica.
+                <li><b>DOMANDA</b>: Il sito è sicuro? Cosa succede al mio Green Pass?</li>
+                <b>RISPOSTA</b>: Il sito è sviluppato puramente in JavaScript, una tecnologia che permette di elaborare il Green
+                Pass nel browser senza inviare dati sulla rete. L’applicazione non invia o salva il contenuto del Green
+                Pass in nessun modo.
+                <div id="advanced-faq-1" style="display: none">
+                    Lorem ipsum
+                </div>
+                <li><b>DOMANDA</b>: Cosa si intende per "Supporto alle app di verifica EU" e "Supporto all'app italiana VerificaC19"?</li>
+                <b>RISPOSTA</b>: Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza iniziale di caratteri
+                del contenuto del QR Code, per cui la nostra applicazione rimuove questa sequenza per minimizzare la densità del nuovo QR Code,
+                senza andare ad intaccare il resto del contenuto. Molte altre app di verifica europee controllano invece questa sequenza,
+                quindi abbiamo fornito la possibilità di generare un Green Pass leggermente più denso, ma compatibile con le
+                specifiche europee.
+                <div id="advanced-faq-2" style="display: none">
+                    Lorem ipsum
+                </div>
+                <li><b>DOMANDA</b>: Il Green Pass qui fornito è valido come quello originale?</li>
+                <b>RISPOSTA</b>: Certamente! Se il tuo Green Pass originale viene verificato correttamente dalle app di verifica,
+                allora anche quello qui fornito sarà valido. Nel caso volessi usare il nuovo QR Code in altri paesi europei, 
+                assicurati di selezionare l'opzione "Supporto alle app di verifica EU" durante la procedura di generazione. 
             </ol>
+        </div>
+        <div class="row p-2">
+            <a id="advanced-faq-btn" href="#">Mostra informazioni avanzate</a>
+            
         </div>
     </div>
 
