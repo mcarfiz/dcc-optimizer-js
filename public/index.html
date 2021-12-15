@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>QR optimizer</title>
+    <title>Green Pass QR Optimizer</title>
     <!-- bootstrap stuff -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    
 
     <link rel="stylesheet" type="text/css" href="./theme.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +25,7 @@
 <body>
     <script type="text/javascript" src="./lib/html5-qrcode.min.js"></script>
     <script type="text/javascript" src="./lib/qr-code-styling.js"></script>
+    <script type="text/javascript" src="./lib/lang.js"></script>
     <!-- build via browserify dcc.js --standalone DCC > dcc-browser.js -->
     <script type="module" src="./lib/dcc-browser.js"></script>
 
@@ -49,21 +51,11 @@
                         aria-controls="collapseFaq">FAQ</a>
                 </div>
             </div>
-            <div class="row card" style="height: 10%;">
-                <div class="card-body">
-                    <label id="lang-label">Choose language:</label>
-                    <select id="lang-picker" class="form-select" style="width: min-content;"
-                        aria-labelledby="lang-label" aria-expanded="false">
-                        <option selected>English</option>
-                        <option value="1">Italiano</option>
-                    </select>
-                </div>
-            </div>
         </div>
     </div>
 
     <!-- navbar -->
-    <nav class="navbar navbar-dark bg-primary" style="padding-top: 20px;" aria-labelledby="navLabel">
+    <nav class="navbar navbar-dark bg-primary" style="padding-top: 20px;" aria-labelledby="nav-title">
         <div class="container-fluid">
             <div class="nav-item">
                 <button class=" btn navbar-toggler-icon" data-bs-toggle="offcanvas" data-bs-target="#sidenav"
@@ -71,163 +63,96 @@
                 </button>
             </div>
             <div class="navbar-brand" style="margin-right: auto; margin-left:1%">
-                <span id="navLabel">DGCC QR optimizer</span>
+                <span id="nav-title"></span>
+            </div>
+            <div class="navbar-brand" style="margin-right: 1%; margin-left:auto">
+                <span><a id="ita" style="color:white">ITA</a></span>/
+                <span><a id="eng" style="color:white" href="#">ENG</a></span>
             </div>
         </div>
     </nav>
 
     <div class="collapse" id="collapseFaq">
         <div class="row p-2">
-            <h3>FAQ</h3>
+            <h3 id="faq-title">F.A.Q.</h3>
         </div>
 
 
-        <div>
+        <div id="faqText">
             <ol>
-                <li><b>DOMANDA</b>: Cosa posso fare in questo sito?</li>
-                <b>RISPOSTA</b>: Questo sito permette di rigenerare il QR Code contenente il Green Pass in modo tale che
-                sia
-                meno denso e di conseguenza più leggibile dalle app di verifica.
-                <li><b>DOMANDA</b>: Cosa devo fare per generare il nuovo QR Code?</li>
-                <b>RISPOSTA</b>: Ci sono due modi per fornire il QR Code originale: premendo il pulsante "Scegli file" e
-                selezionando
-                l'immagine del QR Code valido dall'archivio del dispositivo, oppure avviando la scansione tramite
-                fotocamera premendo
-                il pulsante "Scansiona QR" e inquadrando il QR Code. Entrambe le procedure generano automaticamente un
-                nuovo QR Code,
-                che potrà essere salvato premendo il pulsante "Download".
-                <li><b>DOMANDA</b>: Il sito è sicuro? Cosa succede al mio Green Pass?</li>
-                <b>RISPOSTA</b>: Il sito è sviluppato puramente in JavaScript, una tecnologia che permette di elaborare
-                il Green Pass nel browser senza inviare dati sulla rete. L’applicazione non invia o salva il contenuto
-                del Green
-                Pass in nessun modo e il certificato non viene modificato.
+                <li><b class="question"></b><div id="question1"></div></li>
+                <b class="answer"></b><div id="answer1"></div>
+                <li><b class="question"></b><div id="question2"></div></li>
+                <b class="answer"></b><div id="answer2"></div>
+                <li><b class="question"></b><div id="question3"></div></li>
+                <b class="answer"></b><div id="answer3"></div>
                 <div id="advanced-faq-1" style="display: none">
-                    <b>Dettagli avanzati:</b> Al momento del caricamento della home page, tutte le componenti necessarie
-                    vengono
-                    caricate in modo tale che rimangano statiche e non ci siano comunicazioni di rete durante il
-                    caricamento e
-                    l'elaborazione del QR Code dell'utente. Di seguito vengono riportati alcuni dettagli implementativi
-                    e le librerie usate nei processi di manipolazione dei dati sensibili:
+                    <b class="adv-detail"></b><div id="adv-ans3"></div>
 
                     <ul>
                         <li>
-                            <b>Selezione file:</b> Per caricare l'immagine del QR Code dal file system viene usata la
-                            libreria <a href="https://github.com/nimiq/qr-scanner" target="_blank">Qr-Scanner</a>.
-                            Nel caso del caricamento manuale di un file, JavaScript necessita la creazione di un oggetto
-                            URL
-                            per poter accedere all'immagine fornita dall'utente; questo processo è considerato da alcuni
-                            browser una richiesta di rete,
-                            come riportato nella seguente immagine di esempio:
+                            <b id="adv-ans3-file-sel1"></b>
+                            <div id="adv-ans3-file-sel2"></div>
                             <br><img src="./img/local_request.png"><br>
-                            Ciònonostante, questa richiesta non viene inviata effettivamente sulla rete e ne è prova il
-                            fatto che la generazione può essere effettuata offline e che la richiesta non presenta un
-                            indirizzo remoto
-                            come nella seguente immagine di esempio:
+                            <div id="adv-ans3-file-sel3"></div>
                             <br><img src="./img/network_request.png"><br>
                         </li>
                     </ul>
 
                     <ul>
                         <li>
-                            <b>Scansione QR:</b> Per scansionare il QR Code viene usata la libreria
-                            <a href="https://www.npmjs.com/package/html5-qrcode" target="_blank">Html5-QRCode</a>. A
-                            differenza
-                            della libreria precedente, questa permette a JavaScript di leggere il contenuto
-                            dell'immagine
-                            direttamente
-                            dallo stream MediaStream, evitando la creazione di un oggetto blob e il conseguente URL che
-                            in
-                            alcuni casi
-                            viene considerato come richiesta di rete.
+                            <b id="adv-ans3-qr-scan1"></b>
+                            <div id="adv-ans3-qr-scan2"></div>
                         </li>
                     </ul>
 
                     <ul>
                         <li>
-                            <b>Generazione del QR Code</b> Per decodificare il contenuto del QR Code originale viene
-                            usata
-                            la libreria
-                            <a href="https://github.com/ministero-salute/dcc-utils" target="_blank">DCC-Utils</a>,
-                            mentre
-                            per la
-                            generazione del nuovo QR Code viene usata la libreria <a
-                                href="https://github.com/kozakdenys/qr-code-styling"
-                                target="_blank">QR-Code-Styling</a>.
-                            Una volta effettuata la decodifica, il contenuto viene passato senza alcuna modifica al
-                            generatore di QR, che lo
-                            trasforma nel nuovo QR Code
-                            usando come parametro di correzione dell'errore il valore "L", risultante in una minore
-                            densità
-                            del QR Code rispetto
-                            al valore originale "M".
+                            <b id="adv-ans3-qr-gen1"></b>
+                            <div id="adv-ans3-qr-gen2"></div>
                         </li>
                     </ul>
 
                 </div>
-                <li><b>DOMANDA</b>: Cosa si intende per "Supporto alle app di verifica EU" e "Supporto all'app italiana
-                    VerificaC19"?</li>
-                <b>RISPOSTA</b>: Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza iniziale
-                di caratteri
-                del contenuto del QR Code, per cui la nostra applicazione rimuove questa sequenza per minimizzare la
-                densità del nuovo QR Code,
-                senza andare ad intaccare il resto del contenuto. Molte altre app di verifica europee controllano invece
-                questa sequenza,
-                quindi abbiamo fornito la possibilità di generare un Green Pass leggermente più denso, ma compatibile
-                con le
-                specifiche europee.
-                <div id="advanced-faq-2" style="display: none">
-                    <b>Dettagli avanzati:</b> In particolare, la stringa che viene ignorata dalla verifica dell'app
-                    italiana VerificaC19
-                    è la dicitura "HC1:" che dovrebbe identificare la tipologia del certificato digitale e di
-                    conseguenza la codifica
-                    e il processo di generazione effettuati su di esso, come definito dalle
-                    <a target="_blank"
-                        href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">specifiche
-                        europee</a>.
+                <li><b class="question"></b><div id="question4"></div></li>
+                <b class="answer"></b><div id="answer4"></div>
+                <div id="advanced-faq-1" style="display: none">
+                    <b class="adv-detail"></b><div id="adv-ans4"></div>
                 </div>
-                <li><b>DOMANDA</b>: Il Green Pass qui fornito è valido come quello originale?</li>
-                <b>RISPOSTA</b>: Certamente! Se il tuo Green Pass originale viene verificato correttamente dalle app di
-                verifica,
-                allora anche quello qui fornito sarà valido. Nel caso volessi usare il nuovo QR Code in altri paesi
-                europei,
-                assicurati di selezionare l'opzione "Supporto alle app di verifica EU" durante la procedura di
-                generazione.
+                <li><b class="question"></b><div id="question5"></div></li>
+                <b class="answer"></b><div id="answer5"></div>
             </ol>
         </div>
         <div class="row p-2">
-            <a id="advanced-faq-btn" href="#">Mostra dettagli avanzati</a>
+            <a id="advanced-faq-btn" href="#"></a>
         </div>
     </div>
 
     <div id="main-container" class="rowd-flex flex-column mx-auto" style="width: 85%;">
         <div class="row p-2">
-            <h3>Provide your QR Covid Certificate:</h3>
+            <h3 id="main-title"></h3>
         </div>
-        <div class="row p-2" id="file-picker" style="display: table">
-            <label class="btn btn-primary" for="file-selector">
+        <div class="row p-2" style="display: table">
+            <label id="file-picker" class="btn btn-primary" for="file-selector"></label>
                 <!--  accept="image/*" -->
-                <input type="file" style="display:none" id="file-selector">
-                Choose file
-            </label>
+            <input type="file" style="display:none" id="file-selector">
             <small class="text-muted" id="upload-file-info"></small>
         </div>
 
         <div class="row p-2" style="display: table">
-            <input type="button" class="btn btn-success" id="qrcamera-btn" value="Scan QR with camera">
+            <input type="button" class="btn btn-success" id="qrcamera-btn">
         </div>
         <div id="reader"></div>
 
         <div id="radios" style="margin-top: 1%;">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio-eu">
-                <label class="form-check-label" for="radio-eu">
-                    Support EU verification apps.
+                <label id="radio-label-eu" class="form-check-label" for="radio-eu">
                 </label>
             </div>
             <div class="form-check" style="margin-top: 1%;">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio-it" checked>
-                <label class="form-check-label" for="radio-it">
-                    Support VerificaC19 app (Italy).
+                <label id="radio-label-it"  class="form-check-label" for="radio-it">
                 </label>
             </div>
         </div>

@@ -18,8 +18,12 @@ var dcc;
 var qrEngine;
 var text;
 var show_faq = false;
+var tab;
+var lang = ita;
 
 $(document).ready(function () {
+    tab = "home";
+    load_text();
     qrEngine = QrScanner.createQrEngine();
 });
 
@@ -53,7 +57,7 @@ cameraBtn.addEventListener("click", function (element) {
         html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess)
         .then(success => {
             cameraBtn.className = "btn btn-danger";
-            cameraBtn.value = "Stop scanning";
+            cameraBtn.value = lang["home"]["stop-scanner"];
         })
         .catch(err => {
             error("No camera was found.");
@@ -73,7 +77,7 @@ async function onScanSuccess(decodedText) {
 
 function revertScan(){
     cameraBtn.className = "btn btn-success";
-    cameraBtn.value = "Scan QR with camera";
+    cameraBtn.value = lang["home"]["qrcamera-btn"]
     try{html5QrcodeScanner.stop();}
     catch(error){}
 }
@@ -115,7 +119,7 @@ async function optimize(/*label,*/ result) {
 
         // show success message
         resMsg.className = "alert alert-success";
-        resMsg.innerHTML = "QR has been correctly generated.";
+        resMsg.innerHTML = lang["home"]["success-msg"]
         // append qr rectangle to page and show download button
         qrCode.append(qrCanvas);
         downloadButton.style.display = "table";
@@ -133,11 +137,13 @@ downloadButton.addEventListener('click', function () {
 }, false);
 
 // faq sidenav click
-document.getElementById("faq").addEventListener("click", function(){  
+document.getElementById("faq").addEventListener("click", function(){ 
+        tab = "faq";
+        load_text(lang);
         document.getElementById("close-btn").click();
         document.getElementById("main-container").style.display = "none";
         document.getElementById("faq-card").style.display= "none";
-        document.getElementById("navLabel").innerHTML = "Frequently Asked Questions"
+        document.getElementById("nav-title").innerHTML = lang["faq"]["nav-title"];
         revertScan();
 }, false);
 
@@ -146,13 +152,64 @@ $("#advanced-faq-btn").click(function(){
     $("#advanced-faq-1").toggle("slow");
     $("#advanced-faq-2").toggle("slow");
     if (show_faq){
-        $("#advanced-faq-btn").text("Mostra dettagli avanzati");
+        $("#advanced-faq-btn").text(lang["faq"]["adv-btn-show"]);
         show_faq = false;
     }
     else{
-        $("#advanced-faq-btn").text("Nascondi dettagli avanzati");
+        $("#advanced-faq-btn").text(lang["faq"]["adv-btn-hide"]);
         show_faq = true;
     }
+});
+
+function load_text(){
+    // home
+    if(tab=="home")
+        $('#nav-title').text(lang["home"]["nav-title"]);    
+    else
+        $('#nav-title').text(lang["faq"]["nav-title"]);
+    $('#main-title').html(lang["home"]["main-title"]);  
+    $('#file-picker').html(lang["home"]["file-selector"]);
+    $("#qrcamera-btn").val(lang["home"]["qrcamera-btn"]);
+    $("#radio-label-eu").html(lang["home"]["radio-eu"]);
+    $("#radio-label-it").html(lang["home"]["radio-it"]);
+    // faq
+    $('.question').text(lang["faq"]["question"]);
+    $('.answer').text(lang["faq"]["answer"]);
+    $('.adv-detail').text(lang["faq"]["adv-detail"]);
+    $('#question1').html(lang["faq"]["question1"]);
+    $('#answer1').html(lang["faq"]["answer1"]);
+    $('#question2').html(lang["faq"]["question2"]);
+    $('#answer2').html(lang["faq"]["answer2"]);
+    $('#question3').html(lang["faq"]["question3"]);
+    $('#answer3').html(lang["faq"]["answer3"]);
+    $('#question4').html(lang["faq"]["question4"]);
+    $('#answer4').html(lang["faq"]["answer4"]);
+    $('#question5').html(lang["faq"]["question5"]);
+    $('#answer5').html(lang["faq"]["answer5"]);
+    $('#adv-ans3').html(lang["faq"]["adv-ans3"]);
+    $('#adv-ans3-file-sel1').html(lang["faq"]["adv-ans3-file-sel1"]);
+    $('#adv-ans3-file-sel2').html(lang["faq"]["adv-ans3-file-sel2"]);
+    $('#adv-ans3-file-sel3').html(lang["faq"]["adv-ans3-file-sel3"]);
+    $('#adv-ans3-qr-scan1').html(lang["faq"]["adv-ans3-qr-scan1"]);
+    $('#adv-ans3-qr-scan2').html(lang["faq"]["adv-ans3-qr-scan2"]);
+    $('#adv-ans3-qr-gen1').html(lang["faq"]["adv-ans3-qr-gen1"]);
+    $('#adv-ans3-qr-gen2').html(lang["faq"]["adv-ans3-qr-gen2"]);
+    $('#adv-ans4').html(lang["faq"]["adv-ans4"]);
+    $('#advanced-faq-btn').text(lang["faq"]["adv-btn-show"]);
+}
+
+$('#ita').click(function(){
+    lang = ita;
+    load_text();
+    $('#ita').removeAttr("href");
+    $('#eng').attr('href', '#');
+});
+
+$('#eng').click(function(){
+    lang = eng;
+    load_text();
+    $('#eng').removeAttr("href");
+    $('#ita').attr('href', '#');
 });
 
 // flush errors and previous prints
