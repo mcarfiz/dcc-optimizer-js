@@ -3,11 +3,8 @@ const downloadButton = document.getElementById('download')
 const qrCanvas = document.getElementById('qrcode-canvas')
 const errorMsg = document.getElementById('error-msg')
 const resMsg = document.getElementById('result-msg')
-const verifyButton = document.getElementById('verify')
 const radios = document.getElementById('radios')
 const cameraBtn = document.getElementById('qrcamera-btn')
-
-const TRUST_LIST_URL = 'https://raw.githubusercontent.com/lovasoa/sanipasse/master/src/assets/Digital_Green_Certificate_Signing_Keys.json'
 
 import QrScanner from './lib/qr-scanner.js';
 QrScanner.WORKER_PATH = './lib/qr-scanner-worker.min.js';
@@ -19,23 +16,11 @@ var config = { fps: 10, qrbox: { width: document.getElementById('reader').client
 var qrCode;
 var dcc;
 var qrEngine;
-var keyListJson;
 var text;
 var show_faq = false;
 
 $(document).ready(function () {
     qrEngine = QrScanner.createQrEngine();
-    fetch(TRUST_LIST_URL)
-        .then(response => {
-            if (response.ok)
-                return response.json();
-            else
-                throw new Error('Fetching error');
-        })
-        .then(data => keyListJson = data)
-        .catch(error => {
-            error("An error occurred during the public-key list pre-fetching step.");
-        });
 });
 
 fileSelector.addEventListener('change', event => {
@@ -131,10 +116,9 @@ async function optimize(/*label,*/ result) {
         // show success message
         resMsg.className = "alert alert-success";
         resMsg.innerHTML = "QR has been correctly generated.";
-        // append qr rectangle to page and show download and signature verification buttons
+        // append qr rectangle to page and show download button
         qrCode.append(qrCanvas);
         downloadButton.style.display = "table";
-        // verifyButton.style.display = "table";
     }
     else {
         // show error message
@@ -147,38 +131,6 @@ downloadButton.addEventListener('click', function () {
     // download generated image as jpg with a random name
     qrCode.download({ name: "QR-Optimized", extension: "jpeg" });
 }, false);
-
-// fetch the key list and send it to the verify function
-verifyButton.addEventListener('click', function () {
-
-    verifyFromList(keyListJson)
-        .catch(error => {
-            errorMsg.className = "alert alert-danger";
-            errorMsg.innerHTML = "An error occurred during the verification step.";
-        });
-
-}, false);
-
-// perform signature verification from a list of public keys
-async function verifyFromList(keyList) {
-    // if the key is not found the verification must fail
-    try {
-        var verified = await dcc.checkSignatureWithKeysList(keyList);
-    }
-    catch {
-        resMsg.className = "alert alert-danger";
-        resMsg.innerHTML = "Signature CANNOT be verified.";
-    }
-
-    // if the key is found, then we check if the signature is ok or not
-    if (verified) {
-        resMsg.className = "alert alert-info";
-        resMsg.innerHTML = "Signature has been correctly verified.";
-    } else {
-        resMsg.className = "alert alert-danger";
-        resMsg.innerHTML = "Signature CANNOT be verified.";
-    }
-}
 
 // faq sidenav click
 document.getElementById("faq").addEventListener("click", function(){  
@@ -193,11 +145,11 @@ $("#advanced-faq-btn").click(function(){
     $("#advanced-faq-1").toggle("slow");
     $("#advanced-faq-2").toggle("slow");
     if (show_faq){
-        $("#advanced-faq-btn").text("Mostra informazioni avanzate");
+        $("#advanced-faq-btn").text("Mostra dettagli avanzati");
         show_faq = false;
     }
     else{
-        $("#advanced-faq-btn").text("Nascondi informazioni avanzate");
+        $("#advanced-faq-btn").text("Nascondi dettagli avanzati");
         show_faq = true;
     }
 });
@@ -208,7 +160,6 @@ function resetPage() {
     errorMsg.className = "";
     resMsg.innerHTML = "";
     resMsg.className = "";
-    verifyButton.style.display = "none";
     downloadButton.style.display = "none";
     qrCanvas.innerHTML = "";
 }

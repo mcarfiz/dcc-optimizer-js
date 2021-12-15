@@ -19,3 +19,8 @@ nav {
 li:not(:first-of-type){
     margin-top: 1.5em;
 }
+
+img{
+    margin-top: 0.9em;
+    margin-bottom: 0.9em;
+}
