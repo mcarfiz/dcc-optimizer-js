@@ -33,8 +33,9 @@
     <!-- Sidenav -->
     <div class="offcanvas offcanvas-start w-50" tabindex="-1" id="sidenav" aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasLabel">Menu</h5>
-          <button id="close-btn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <h5 class="offcanvas-title" id="offcanvasLabel">Menu</h5>
+            <button id="close-btn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div class="row card" style="height: 10%;">
@@ -44,18 +45,26 @@
             </div>
             <div id="faq-card" class="row card" style="height: 10%;">
                 <div class="card-body">
-                    <a id="faq" role="button" data-bs-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq">FAQ</a>
+                    <a id="faq" role="button" data-bs-toggle="collapse" href="#collapseFaq" aria-expanded="false"
+                        aria-controls="collapseFaq">FAQ</a>
                 </div>
             </div>
         </div>
-      </div>
+    </div>
 
     <!-- navbar -->
     <nav class="navbar navbar-dark bg-primary" style="padding-top: 20px;" aria-labelledby="navLabel">
-        <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#sidenav" role="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <h5 id="navLabel">DGCC QR optimizer</h5>
+        <div class="container-fluid">
+            <div class="nav-item">
+                <button class=" btn navbar-toggler-icon" data-bs-toggle="offcanvas" data-bs-target="#sidenav"
+                    role="button">
+                </button>
+            </div>
+            <div class="navbar-brand" style="margin-right: auto; margin-left:1%">
+                <span id="navLabel">DGCC QR optimizer</span>
+
+            </div>
+        </div>
     </nav>
 
     <div class="collapse" id="collapseFaq">
@@ -67,33 +76,43 @@
         <div>
             <ol>
                 <li><b>DOMANDA</b>: Cosa posso fare in questo sito?</li>
-                <b>RISPOSTA</b>: Questo sito permette di rigenerare il QR Code contenente il Green Pass in modo tale che sia
+                <b>RISPOSTA</b>: Questo sito permette di rigenerare il QR Code contenente il Green Pass in modo tale che
+                sia
                 meno denso e di conseguenza più leggibile dalle app di verifica.
                 <li><b>DOMANDA</b>: Il sito è sicuro? Cosa succede al mio Green Pass?</li>
-                <b>RISPOSTA</b>: Il sito è sviluppato puramente in JavaScript, una tecnologia che permette di elaborare il Green
+                <b>RISPOSTA</b>: Il sito è sviluppato puramente in JavaScript, una tecnologia che permette di elaborare
+                il Green
                 Pass nel browser senza inviare dati sulla rete. L’applicazione non invia o salva il contenuto del Green
                 Pass in nessun modo.
                 <div id="advanced-faq-1" style="display: none">
                     Lorem ipsum
                 </div>
-                <li><b>DOMANDA</b>: Cosa si intende per "Supporto alle app di verifica EU" e "Supporto all'app italiana VerificaC19"?</li>
-                <b>RISPOSTA</b>: Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza iniziale di caratteri
-                del contenuto del QR Code, per cui la nostra applicazione rimuove questa sequenza per minimizzare la densità del nuovo QR Code,
-                senza andare ad intaccare il resto del contenuto. Molte altre app di verifica europee controllano invece questa sequenza,
-                quindi abbiamo fornito la possibilità di generare un Green Pass leggermente più denso, ma compatibile con le
+                <li><b>DOMANDA</b>: Cosa si intende per "Supporto alle app di verifica EU" e "Supporto all'app italiana
+                    VerificaC19"?</li>
+                <b>RISPOSTA</b>: Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza iniziale
+                di caratteri
+                del contenuto del QR Code, per cui la nostra applicazione rimuove questa sequenza per minimizzare la
+                densità del nuovo QR Code,
+                senza andare ad intaccare il resto del contenuto. Molte altre app di verifica europee controllano invece
+                questa sequenza,
+                quindi abbiamo fornito la possibilità di generare un Green Pass leggermente più denso, ma compatibile
+                con le
                 specifiche europee.
                 <div id="advanced-faq-2" style="display: none">
                     Lorem ipsum
                 </div>
                 <li><b>DOMANDA</b>: Il Green Pass qui fornito è valido come quello originale?</li>
-                <b>RISPOSTA</b>: Certamente! Se il tuo Green Pass originale viene verificato correttamente dalle app di verifica,
-                allora anche quello qui fornito sarà valido. Nel caso volessi usare il nuovo QR Code in altri paesi europei, 
-                assicurati di selezionare l'opzione "Supporto alle app di verifica EU" durante la procedura di generazione. 
+                <b>RISPOSTA</b>: Certamente! Se il tuo Green Pass originale viene verificato correttamente dalle app di
+                verifica,
+                allora anche quello qui fornito sarà valido. Nel caso volessi usare il nuovo QR Code in altri paesi
+                europei,
+                assicurati di selezionare l'opzione "Supporto alle app di verifica EU" durante la procedura di
+                generazione.
             </ol>
         </div>
         <div class="row p-2">
             <a id="advanced-faq-btn" href="#">Mostra informazioni avanzate</a>
-            
+
         </div>
     </div>
 
