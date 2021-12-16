@@ -201,6 +201,8 @@ function load_text() {
     $('#answer4').html(lang["faq"]["answer4"]);
     $('#question5').html(lang["faq"]["question5"]);
     $('#answer5').html(lang["faq"]["answer5"]);
+    $('#question6').html(lang["faq"]["question6"]);
+    $('#answer6').html(lang["faq"]["answer6"]);
     $('#adv-ans3').html(lang["faq"]["adv-ans3"]);
     $('#adv-ans3-file-sel1').html(lang["faq"]["adv-ans3-file-sel1"]);
     $('#adv-ans3-file-sel2').html(lang["faq"]["adv-ans3-file-sel2"]);

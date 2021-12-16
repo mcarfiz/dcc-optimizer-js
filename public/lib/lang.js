@@ -35,6 +35,8 @@ let ita = {
         "answer5": "Certamente! Non vengono effettuate manipolazioni al contenuto della certificazione: se il tuo Green Pass originale viene accettato dalle app di verifica, allora anche quello qui fornito sar\xE0 valido. Nel caso volessi usare il nuovo QR Code in altri paesi europei, assicurati di selezionare l'opzione \"Supporto alle app di verifica EU\" durante la procedura di generazione.",
         "adv-ans4": `In particolare, la stringa che viene ignorata dalla verifica dell'app italiana VerificaC19 \xE8 la dicitura \"HC1:\" che identifica la versione del certificato digitale e di conseguenza la codifica e il processo di generazione effettuati su di esso, come definito dalle <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">specifiche europee</a>.`,
         "adv-user": "Sei un utente avanzato?",
+        "question6": "Posso controllare il codice sorgente?",
+        "answer6": "Il codice sorgente è disponibile <a href='https://github.com/mcarfiz/dgcc-optimizer-js'>attraverso questo link</a>.",
         "adv-btn-show": "Mostra dettagli avanzati.",
         "adv-btn-hide": "Nascondi dettagli avanzati."
     }
@@ -76,6 +78,8 @@ let eng = {
         "question5": "Is the DGCC provided here as good as the original one?",
         "answer5": " Of course! No manipulations are made to the certification content: if your original Green Pass is accepted by the verification apps, then the one provided here will be valid as well. In case you want to use the new QR Code in other European countries, please make sure to select the option \"Support EU verification apps\" during the generation process.",
         "adv-ans4": `In particular, the prefix string that is ignored by the verification of the Italian VerifyC19 app is the wording \"HC1:\", which identifies the version of the digital certificate and consequently the encoding and generation process carried out on it, as defined by the <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">European specifications</a>.`,
+        "question6": "Can I check the source code?",
+        "answer6": "Source code is available <a href='https://github.com/mcarfiz/dgcc-optimizer-js'>at this link</a>.",
         "adv-user": "Are you an advanced user?",
         "adv-btn-show": "Show advanced details.",
         "adv-btn-hide": "Hide advanced details."
