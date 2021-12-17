@@ -18,12 +18,11 @@ var dcc;
 var qrEngine;
 var text;
 var show_faq = false;
-var tab;
+var tab = "home";
 var lang = ita;
 
 // on load: load localization and set up qrscanner engine
 $(document).ready(function () {
-    tab = "home";
     load_text();
     qrEngine = QrScanner.createQrEngine();
 });
@@ -56,7 +55,7 @@ fileSelector.addEventListener("click", event => {
 
 // camera button listener to activate the camera scanner
 cameraBtn.addEventListener("click", function (element) {
-    if (cameraBtn.className == "btn btn-success") {
+    if (cameraBtn.className === "btn btn-success") {
         html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess)
             .then(success => {
                 cameraBtn.className = "btn btn-danger";
@@ -137,23 +136,23 @@ downloadButton.addEventListener('click', function () {
 
 document.getElementById("home-side-btn").addEventListener('click', function () {
     document.getElementById("close-btn").click();
-    if (tab === "faq") {
-        document.getElementById("faq").click();
-        document.getElementById("main-container").style.display = "table";
-        document.getElementById("faq-card").style.display = "flex";
-    }
+    // document.getElementById("faq").click();
+    document.getElementById("main-container").style.display = "table";
+    document.getElementById("faq-container").style.display = "none";
+    document.getElementById("nav-title").innerHTML = lang["home"]["nav-title"];
+    tab = "home";
 }, false);
 
 // faq sidenav click
-document.getElementById("faq").addEventListener("click", function () {
-    tab = "faq";
+document.getElementById("faq-side-btn").addEventListener("click", function () {
     // close sidenav and show faq
     document.getElementById("close-btn").click();
     document.getElementById("main-container").style.display = "none";
-    document.getElementById("faq-card").style.display = "none";
+    document.getElementById("faq-container").style.display = "table";
     document.getElementById("nav-title").innerHTML = lang["faq"]["nav-title"];
     // stop camera scanning if active
     revertScan();
+    tab = "faq";
 }, false);
 
 // advanced faq toggle

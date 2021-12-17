@@ -36,7 +36,7 @@ let ita = {
         "adv-ans4": `In particolare, la stringa che viene ignorata dalla verifica dell'app italiana VerificaC19 \xE8 la dicitura \"HC1:\" che identifica la versione del certificato digitale e di conseguenza la codifica e il processo di generazione effettuati su di esso, come definito dalle <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">specifiche europee</a>.`,
         "adv-user": "Sei un utente avanzato?",
         "question6": "Posso controllare il codice sorgente?",
-        "answer6": "Il codice sorgente è disponibile <a href='https://github.com/mcarfiz/dgcc-optimizer-js'>attraverso questo link</a>.",
+        "answer6": `Il codice sorgente \xE8 disponibile <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target="_blank">attraverso questo link</a>.`,
         "adv-btn-show": "Mostra dettagli avanzati.",
         "adv-btn-hide": "Nascondi dettagli avanzati."
     }
@@ -70,7 +70,7 @@ let eng = {
         "adv-ans3-file-sel2": `To load the QR Code image from the file system, the <a href="https://github.com/nimiq/qr-scanner" target="_blank">Qr-Scanner</a> library is used. In the case of manually loading a file, JavaScript requires the creation of a URL object in order to access the user-supplied image; this process is considered a network request by some browsers, as shown in the following example image:`,
         "adv-ans3-file-sel3": "Nevertheless, this request is not actually sent over the network and proof of this is the fact that generation can be done offline and the request does not have a remote address as in the following example image:",
         "adv-ans3-qr-scan1": "QR scan:",
-        "adv-ans3-qr-scan2": `To scan the QR Code the <a href="https://www.npmjs.com/package/html5-qrcode" target="_blank">Html5-QRCode</a> library is used. Unlike the previous library, this one allows JavaScript to read the content of the image directly from the MediaStream stream, avoiding the creation of a blob object and the resulting URL which in some cases is considered as a network request.`,
+        "adv-ans3-qr-scan2": `To scan the QR Code the <a href="https://www.npmjs.com/package/html5-qrcode" target='_blank'>Html5-QRCode</a> library is used. Unlike the previous library, this one allows JavaScript to read the content of the image directly from the MediaStream stream, avoiding the creation of a blob object and the resulting URL which in some cases is considered as a network request.`,
         "adv-ans3-qr-gen1": "QR code generation:",
         "adv-ans3-qr-gen2": `To decode the content of the original QR Code the <a href="https://github.com/ministero-salute/dcc-utils" target="_blank">DCC-Utils</a> library is used, while for the generation of the new QR Code the <a href="https://github.com/kozakdenys/qr-code-styling" target="_blank">QR-Code-Styling</a> library is used. Once the decoding is done, the content is passed without any changes to the QR generator, which transforms it into the new QR Code using the value \"L\" as an error correction parameter, resulting in a lower density of the QR Code compared to the original value \"M\".`,
         "question4": "What is the meaning of \"Support EU Verification Apps\" and \"Support Italian Verification App\"?",
@@ -79,7 +79,7 @@ let eng = {
         "answer5": " Of course! No manipulations are made to the certification content: if your original Green Pass is accepted by the verification apps, then the one provided here will be valid as well. In case you want to use the new QR Code in other European countries, please make sure to select the option \"Support EU verification apps\" during the generation process.",
         "adv-ans4": `In particular, the prefix string that is ignored by the verification of the Italian VerifyC19 app is the wording \"HC1:\", which identifies the version of the digital certificate and consequently the encoding and generation process carried out on it, as defined by the <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">European specifications</a>.`,
         "question6": "Can I check the source code?",
-        "answer6": "Source code is available <a href='https://github.com/mcarfiz/dgcc-optimizer-js'>at this link</a>.",
+        "answer6": "Source code is available <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target='_blank'>at this link</a>.",
         "adv-user": "Are you an advanced user?",
         "adv-btn-show": "Show advanced details.",
         "adv-btn-hide": "Hide advanced details."
