@@ -136,26 +136,31 @@ downloadButton.addEventListener('click', function () {
 
 
 
-// faq/home top nav click
-document.getElementById("nav-switch-btn").addEventListener("click", function () {
+// faq top nav click
+document.getElementById("nav-faq-btn").addEventListener("click", function () {
     if (tab === "home") {
+        $('#nav-faq-btn').removeAttr("href");
+        $('#nav-home-btn').attr('href', '#');
         document.getElementById("main-container").style.display = "none";
         document.getElementById("faq-container").style.display = "table";
         document.getElementById("nav-title").innerHTML = lang["faq"]["nav-title"];
-        document.getElementById("nav-switch-btn").innerHTML = "Home";
         // stop camera scanning if active
         revertScan();
         tab = "faq";
-    } else {
-        if (tab === "faq") {
-            document.getElementById("nav-switch-btn").innerHTML = "F.A.Q.";
-            document.getElementById("main-container").style.display = "table";
-            document.getElementById("faq-container").style.display = "none";
-            document.getElementById("nav-title").innerHTML = lang["home"]["nav-title"];
-            tab = "home";
-        }
     }
 
+}, false);
+
+// home top nav click
+document.getElementById("nav-home-btn").addEventListener("click", function () {
+    if (tab === "faq") {
+        $('#nav-home-btn').removeAttr("href");
+        $('#nav-faq-btn').attr('href', '#');
+        document.getElementById("main-container").style.display = "table";
+        document.getElementById("faq-container").style.display = "none";
+        document.getElementById("nav-title").innerHTML = lang["home"]["nav-title"];
+        tab = "home";
+    }
 }, false);
 
 // advanced faq toggle
