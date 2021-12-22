@@ -16,7 +16,6 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
 
-
     <link rel="stylesheet" type="text/css" href="./theme.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="img/icon.png">
@@ -32,39 +31,16 @@
     <!-- main script import -->
     <script type="module" src="core.js"></script>
 
-    <!-- Sidenav -->
-    <div class="offcanvas offcanvas-start w-50" tabindex="-1" id="sidenav" aria-labelledby="offcanvasLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasLabel">Menu</h5>
-            <button id="close-btn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="row card" style="height: 10%;">
-                <div class="card-body">
-                    <a id="home-side-btn" href="#">Home</a>
-                </div>
-            </div>
-            <div class="row card" style="height: 10%;">
-                <div class="card-body">
-                    <a id="faq-side-btn" href="#">FAQ</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- navbar -->
     <nav class="navbar navbar-dark bg-primary" style="padding-top: 20px;" aria-labelledby="nav-title">
         <div class="container-fluid">
-            <div class="nav-item">
-                <button class=" btn navbar-toggler-icon" data-bs-toggle="offcanvas" data-bs-target="#sidenav"
-                    role="button">
-                </button>
-            </div>
-            <div class="navbar-brand" style="margin-right: auto; margin-left:1%">
+            <div class="navbar-brand" style="margin-right: auto; margin-left:1%;">
                 <span id="nav-title"></span>
             </div>
-            <div class="navbar-brand" style="margin-right: 1%; margin-left:auto">
+            <div class="nav-item">
+                <span><a id="nav-switch-btn" style="margin-left: auto; color: white;" href="#">F.A.Q.</a></span>
+            </div>
+            <div class="nav-item" style="margin-right: 1%; margin-left:auto;">
                 <span><a id="ita" style="color:white">ITA</a></span>/
                 <span><a id="eng" style="color:white" href="#">ENG</a></span>
             </div>
@@ -142,6 +118,16 @@
                 </li>
                 <b class="answer"></b>
                 <div id="answer6"></div>
+                <li><b class="question"></b>
+                    <div id="question7"></div>
+                </li>
+                <b class="answer"></b>
+                <div id="answer7"></div>
+                <li><b class="question"></b>
+                    <div id="question8"></div>
+                </li>
+                <b class="answer"></b>
+                <div id="answer8"></div>
             </ol>
         </div>
         <div class="row p-2" style="display: table;">
@@ -168,12 +154,12 @@
 
         <div id="radios" style="margin-top: 1%;">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio-eu">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio-eu" checked>
                 <label id="radio-label-eu" class="form-check-label" for="radio-eu">
                 </label>
             </div>
             <div class="form-check" style="margin-top: 1%;">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio-it" checked>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio-it">
                 <label id="radio-label-it" class="form-check-label" for="radio-it">
                 </label>
             </div>

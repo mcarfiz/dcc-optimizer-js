@@ -134,25 +134,28 @@ downloadButton.addEventListener('click', function () {
     qrCode.download({ name: "QR-Optimized", extension: "jpeg" });
 }, false);
 
-document.getElementById("home-side-btn").addEventListener('click', function () {
-    document.getElementById("close-btn").click();
-    // document.getElementById("faq").click();
-    document.getElementById("main-container").style.display = "table";
-    document.getElementById("faq-container").style.display = "none";
-    document.getElementById("nav-title").innerHTML = lang["home"]["nav-title"];
-    tab = "home";
-}, false);
 
-// faq sidenav click
-document.getElementById("faq-side-btn").addEventListener("click", function () {
-    // close sidenav and show faq
-    document.getElementById("close-btn").click();
-    document.getElementById("main-container").style.display = "none";
-    document.getElementById("faq-container").style.display = "table";
-    document.getElementById("nav-title").innerHTML = lang["faq"]["nav-title"];
-    // stop camera scanning if active
-    revertScan();
-    tab = "faq";
+
+// faq/home top nav click
+document.getElementById("nav-switch-btn").addEventListener("click", function () {
+    if (tab === "home") {
+        document.getElementById("main-container").style.display = "none";
+        document.getElementById("faq-container").style.display = "table";
+        document.getElementById("nav-title").innerHTML = lang["faq"]["nav-title"];
+        document.getElementById("nav-switch-btn").innerHTML = "Home";
+        // stop camera scanning if active
+        revertScan();
+        tab = "faq";
+    } else {
+        if (tab === "faq") {
+            document.getElementById("nav-switch-btn").innerHTML = "F.A.Q.";
+            document.getElementById("main-container").style.display = "table";
+            document.getElementById("faq-container").style.display = "none";
+            document.getElementById("nav-title").innerHTML = lang["home"]["nav-title"];
+            tab = "home";
+        }
+    }
+
 }, false);
 
 // advanced faq toggle
@@ -202,6 +205,10 @@ function load_text() {
     $('#answer5').html(lang["faq"]["answer5"]);
     $('#question6').html(lang["faq"]["question6"]);
     $('#answer6').html(lang["faq"]["answer6"]);
+    $('#question7').html(lang["faq"]["question7"]);
+    $('#answer7').html(lang["faq"]["answer7"]);
+    $('#question8').html(lang["faq"]["question8"]);
+    $('#answer8').html(lang["faq"]["answer8"]);
     $('#adv-ans3').html(lang["faq"]["adv-ans3"]);
     $('#adv-ans3-file-sel1').html(lang["faq"]["adv-ans3-file-sel1"]);
     $('#adv-ans3-file-sel2').html(lang["faq"]["adv-ans3-file-sel2"]);

@@ -2,11 +2,12 @@ let ita = {
     "home": {
         "nav-title": "Ottimizzatore QR Green Pass",
         "main-title": "Indica l'immagine con il codice QR del Green Pass:",
+        "sub-title": "Formati supportati: ",
         "file-selector": "Scegli immagine",
         "qrcamera-btn": "Scansiona QR Code",
         "stop-scanner": "Annulla scansione",
-        "radio-eu": "Supporto app di verifica EU.",
-        "radio-it": "Supporto app italiana VerificaC19.",
+        "radio-eu": "Supporto app di verifica sia italiana che EU.",
+        "radio-it": "Supporto app di verifica solo italiana (leggermente più compresso).",
         "success-msg": "QR Code generato con successo.",
         "download-btn": "Download codice QR"
     },
@@ -37,6 +38,10 @@ let ita = {
         "adv-user": "Sei un utente avanzato?",
         "question6": "Posso controllare il codice sorgente?",
         "answer6": `Il codice sorgente \xE8 disponibile <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target="_blank">attraverso questo link</a>.`,
+        "question7": "Quali app di verifica europee sono compatibili?",
+        "answer7": "Teoricamente tutte, visto che non avvengono modifiche alla certificazione. Abbiamo testato con le app dei seguenti paesi: Italia, Belgio, Repubblica Ceca, Irlanda.",
+        "question8": "Chi sono gli autori?",
+        "answer8": "Questo progetto fa parte della tesi di laurea magistrale in computer science di Marco Carfizzi e Giacomo Arrigo, seguiti dal <a href= 'https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.",
         "adv-btn-show": "Mostra dettagli avanzati.",
         "adv-btn-hide": "Nascondi dettagli avanzati."
     }
@@ -49,8 +54,8 @@ let eng = {
         "file-selector": "Choose image",
         "qrcamera-btn": "Scan QR Code",
         "stop-scanner": "Stop scanning",
-        "radio-eu": "Support EU verification apps.",
-        "radio-it": "Support VerificaC19 app (Italy).",
+        "radio-eu": "Support both EU and italian app.",
+        "radio-it": "Support only VerificaC19 italian app (slightly smaller).",
         "success-msg": "QR has been correctly generated.",
         "download-btn": "Download QR code"
     },
@@ -80,6 +85,10 @@ let eng = {
         "adv-ans4": `In particular, the prefix string that is ignored by the verification of the Italian VerifyC19 app is the wording \"HC1:\", which identifies the version of the digital certificate and consequently the encoding and generation process carried out on it, as defined by the <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">European specifications</a>.`,
         "question6": "Can I check the source code?",
         "answer6": "Source code is available <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target='_blank'>at this link</a>.",
+        "question7": "What european verification apps are compatible?",
+        "answer7": "Theoretically all of them, since no certification change takes place. We tested with apps from the following countries: Italy, Belgium, Czech Republic, Ireland.",
+        "question8": "Who are the authors?",
+        "answer8": "This project is part of the master thesis in computer science of Marco Carfizzi and Giacomo Arrigo, supervised by <a href='https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.",
         "adv-user": "Are you an advanced user?",
         "adv-btn-show": "Show advanced details.",
         "adv-btn-hide": "Hide advanced details."
