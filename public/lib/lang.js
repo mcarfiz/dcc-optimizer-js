@@ -7,7 +7,7 @@ let ita = {
         "qrcamera-btn": "Scansiona QR Code",
         "stop-scanner": "Annulla scansione",
         "radio-eu": "Supporto app di verifica sia italiana che EU.",
-        "radio-it": "Supporto app di verifica solo italiana (leggermente più compresso).",
+        "radio-it": "Supporto app di verifica solo italiana (leggermente pi\xF9 compresso).",
         "success-msg": "QR Code generato con successo.",
         "download-btn": "Download codice QR"
     },
@@ -41,7 +41,7 @@ let ita = {
         "question7": "Quali app di verifica europee sono compatibili?",
         "answer7": "Teoricamente tutte, visto che non avvengono modifiche alla certificazione. Abbiamo testato con le app dei seguenti paesi: Italia, Belgio, Repubblica Ceca, Irlanda.",
         "question8": "Chi sono gli autori?",
-        "answer8": "Questo progetto fa parte della tesi di laurea magistrale in computer science di Marco Carfizzi e Giacomo Arrigo, seguiti dal <a href= 'https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.",
+        "answer8": "Questo progetto fa parte della tesi di Laurea Magistrale in Computer Science di Marco Carfizzi e Giacomo Arrigo, sotto la supervisione del <a href= 'https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.",
         "adv-btn-show": "Mostra dettagli avanzati.",
         "adv-btn-hide": "Nascondi dettagli avanzati."
     }
@@ -54,8 +54,8 @@ let eng = {
         "file-selector": "Choose image",
         "qrcamera-btn": "Scan QR Code",
         "stop-scanner": "Stop scanning",
-        "radio-eu": "Support both EU and italian app.",
-        "radio-it": "Support only VerificaC19 italian app (slightly smaller).",
+        "radio-eu": "Support both EU and Italian app.",
+        "radio-it": "Support only VerificaC19 Italian app (slightly smaller).",
         "success-msg": "QR has been correctly generated.",
         "download-btn": "Download QR code"
     },
@@ -88,7 +88,7 @@ let eng = {
         "question7": "What european verification apps are compatible?",
         "answer7": "Theoretically all of them, since no certification change takes place. We tested with apps from the following countries: Italy, Belgium, Czech Republic, Ireland.",
         "question8": "Who are the authors?",
-        "answer8": "This project is part of the master thesis in computer science of Marco Carfizzi and Giacomo Arrigo, supervised by <a href='https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.",
+        "answer8": "This project is part of the Master thesis in Computer Science of Marco Carfizzi and Giacomo Arrigo, supervised by <a href='https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.",
         "adv-user": "Are you an advanced user?",
         "adv-btn-show": "Show advanced details.",
         "adv-btn-hide": "Hide advanced details."
