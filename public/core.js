@@ -134,8 +134,6 @@ downloadButton.addEventListener('click', function () {
     qrCode.download({ name: "QR-Optimized", extension: "jpeg" });
 }, false);
 
-
-
 // faq top nav click
 document.getElementById("nav-faq-btn").addEventListener("click", function () {
     if (tab === "home") {
@@ -190,6 +188,7 @@ function load_text() {
     $('#main-title').html(lang["home"]["main-title"]);
     $('#file-selector-label').html(lang["home"]["file-selector"]);
     $("#qrcamera-btn").val(lang["home"]["qrcamera-btn"]);
+    $("#adv-options").html(lang["home"]["adv-options"]);
     $("#radio-label-eu").html(lang["home"]["radio-eu"]);
     $("#radio-label-it").html(lang["home"]["radio-it"]);
     if (resMsg.innerHTML)
@@ -227,6 +226,10 @@ function load_text() {
         $('#advanced-faq-btn').text(lang["faq"]["adv-btn-hide"]);
     else
         $('#advanced-faq-btn').text(lang["faq"]["adv-btn-show"]);
+    // listener for dinamically generated faq link in advanced settings
+    document.getElementById("setting-faq-btn").addEventListener("click", function () {
+        document.getElementById("nav-faq-btn").click();
+    }, false);
 }
 
 // italian language on click

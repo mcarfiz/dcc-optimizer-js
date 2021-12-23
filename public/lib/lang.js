@@ -6,8 +6,9 @@ let ita = {
         "file-selector": "Scegli immagine",
         "qrcamera-btn": "Scansiona QR Code",
         "stop-scanner": "Annulla scansione",
-        "radio-eu": "Supporto app di verifica sia italiana che EU.",
-        "radio-it": "Supporto app di verifica solo italiana (leggermente pi\xF9 compresso).",
+        "adv-options": "Impostazioni avanzate...",
+        "radio-eu": "Supporto app di verifica sia italiana che EU (Default).",
+        "radio-it": "Supporto app di verifica solo italiana (pi\xE9 piccolo, <a id='setting-faq-btn' href='#'>leggi F.A.Q.</a>).",
         "success-msg": "QR Code generato con successo.",
         "download-btn": "Download codice QR"
     },
@@ -54,8 +55,9 @@ let eng = {
         "file-selector": "Choose image",
         "qrcamera-btn": "Scan QR Code",
         "stop-scanner": "Stop scanning",
-        "radio-eu": "Support both EU and Italian app.",
-        "radio-it": "Support only VerificaC19 Italian app (slightly smaller).",
+        "adv-options": "Advanced settings...",
+        "radio-eu": "Support both EU and Italian app. (Default)",
+        "radio-it": "Support only VerificaC19 Italian app (smaller, <a id='setting-faq-btn' href='#'>read F.A.Q.</a>).",
         "success-msg": "QR has been correctly generated.",
         "download-btn": "Download QR code"
     },
