@@ -8,7 +8,7 @@ let ita = {
         "stop-scanner": "Annulla scansione",
         "adv-options": "Impostazioni avanzate",
         "radio-eu": "Supporto app di verifica sia italiana che EU. (Default)",
-        "radio-it": "Supporto app di verifica solo italiana. (Pi\xF9 leggero, <a id='setting-faq-btn' href='#'>leggi F.A.Q.</a>)",
+        "radio-it": "Supporto app di verifica solo italiana. (Pi\xF9 leggero, <a id='setting-faq-btn' href='#'>leggi FAQ</a>)",
         "success-msg": "QR Code generato con successo.",
         "download-btn": "Download codice QR"
     },
@@ -31,14 +31,15 @@ let ita = {
         "adv-ans3-qr-scan2": `Per scansionare il QR Code viene usata la libreria <a href="https://www.npmjs.com/package/html5-qrcode" target="_blank">Html5-QRCode</a>. A differenza della libreria precedente, questa permette a JavaScript di leggere il contenuto dell'immagine direttamente dallo stream MediaStream, evitando la creazione di un oggetto blob e il conseguente URL che in alcuni casi viene considerato come richiesta di rete.`,
         "adv-ans3-qr-gen1": "Generazione codice QR:",
         "adv-ans3-qr-gen2": `Per decodificare il contenuto del QR Code originale viene usata la libreria <a href="https://github.com/ministero-salute/dcc-utils" target="_blank">DCC-Utils</a>, mentre per la generazione del nuovo QR Code viene usata la libreria <a href="https://github.com/kozakdenys/qr-code-styling" target="_blank">QR-Code-Styling</a>. Una volta effettuata la decodifica, il contenuto viene passato senza alcuna modifica al generatore di QR, che lo trasforma nel nuovo QR Code usando come parametro di correzione dell'errore il valore \"L\", risultante in una minore densit\xE0 del QR Code rispetto al valore originale \"M\".`,
-        "question4": "Il Green Pass qui fornito \xE8 valido come quello originale? Quali app di verifica europee sono compatibili?", 
+        "question4": "Il Green Pass qui fornito \xE8 valido come quello originale? Quali app di verifica europee sono compatibili?",
         "answer4": "Non vengono effettuate manipolazioni al contenuto della certificazione: se il tuo Green Pass originale viene accettato dalle app di verifica, allora anche quello qui fornito sar\xE0 valido. Abbiamo testato con le app dei seguenti paesi: Italia, Belgio, Repubblica Ceca, Irlanda.",
         "question5": "Cosa si intende per \"Supporto app di verifica sia italiana che EU\" e \"Supporto app di verifica solo italiana\"?",
-        "answer5":  "Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza di caratteri posta all'inizio del contenuto del QR Code, per cui la nostra applicazione offre la possibilit\xE0 di rimuovere questo prefisso per minimizzare la densit\xE0 del nuovo QR Code nel caso la seconda opzione venga manualmente selezionata dall'utente, mentre l'opzione di default lascia intatta questa sequenza che viene invece controllata da altre app di verifica europee.",
+        "answer5": "Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza di caratteri posta all'inizio del contenuto del QR Code, per cui la nostra applicazione offre la possibilit\xE0 di rimuovere questo prefisso per minimizzare la densit\xE0 del nuovo QR Code nel caso la seconda opzione venga manualmente selezionata dall'utente, mentre l'opzione di default lascia intatta questa sequenza che viene invece controllata da altre app di verifica europee.",
         "adv-ans5": `In particolare, la stringa che viene ignorata dalla verifica dell'app italiana VerificaC19 \xE8 la dicitura \"HC1:\" che identifica la versione del certificato digitale e di conseguenza la codifica e il processo di generazione effettuati su di esso, come definito dalle <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">specifiche europee</a>. Rimuovendo questa corta stringa, \xE8 possibile ridurre le dimensioni del file di output di una quantit\xE0 nell'ordine di ~1KB.`,
         "question6": "Posso controllare il codice sorgente? Chi sono gli autori?",
         "answer6": `Il codice sorgente \xE8 disponibile <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target="_blank">attraverso questo link</a>. Questo progetto fa parte della tesi di Laurea Magistrale in Computer Science di Marco Carfizzi e Giacomo Arrigo, sotto la supervisione del <a href= 'https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.`,
-
+        "question7": "Quali formati sono compatibili?",
+        "answer7": "\xC8 possibile caricare un qualsiasi formato immagine, come ad esempio jpg, png, gif, ma non file pdf. Se hai la necessità di convertire il QR di un file pdf puoi usare la funzione di scannerizzazione da videocamera!"
     }
 }
 
@@ -51,7 +52,7 @@ let eng = {
         "stop-scanner": "Stop scanning",
         "adv-options": "Advanced settings",
         "radio-eu": "Support both EU and Italian app. (Default)",
-        "radio-it": "Support only VerificaC19 Italian app. (Lighter, <a id='setting-faq-btn' href='#'>read F.A.Q.</a>)",
+        "radio-it": "Support only VerificaC19 Italian app. (Lighter, <a id='setting-faq-btn' href='#'>read FAQ</a>)",
         "success-msg": "QR has been correctly generated.",
         "download-btn": "Download QR code"
     },
@@ -77,11 +78,13 @@ let eng = {
         "question4": "Is the DGCC provided here as good as the original one? What european verification apps are compatible?",
         "answer4": "No manipulations are made to the certification content: if your original Green Pass is accepted by the verification apps, then the one provided here will be valid as well. We tested with apps from the following countries: Italy, Belgium, Czech Republic, Ireland.",
         "question5": "What is the meaning of \"Support both EU and Italian app\" and \"Support only VerificaC19 Italian app\"?",
-        "answer5":  "Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza di caratteri posta all'inizio del contenuto del QR Code, per cui la nostra applicazione offre la possibilit\xE0 di rimuovere questo prefisso per minimizzare la densit\xE0 del nuovo QR Code nel caso la seconda opzione venga manualmente selezionata dall'utente, mentre l'opzione di default lascia intatta questa sequenza che viene invece controllata da altre app di verifica europee.",
+        "answer5": "Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza di caratteri posta all'inizio del contenuto del QR Code, per cui la nostra applicazione offre la possibilit\xE0 di rimuovere questo prefisso per minimizzare la densit\xE0 del nuovo QR Code nel caso la seconda opzione venga manualmente selezionata dall'utente, mentre l'opzione di default lascia intatta questa sequenza che viene invece controllata da altre app di verifica europee.",
 
         "answer5": " Currently the Italian verification app VerificaC19 does not check a sequence of characters placed at the beginning of the QR Code content, so our app offers the possibility to remove this prefix to minimize the density of the new QR Code in case the second option is manually selected by the user, while the default option keeps intact this sequence that is conversely checked by other european verification apps.",
         "adv-ans5": `In particular, the prefix string that is ignored by the verification of the Italian VerifyC19 app is the wording \"HC1:\", which identifies the version of the digital certificate and consequently the encoding and generation process carried out on it, as defined by the <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">European specifications</a>. By removing this short string, it is possible to reduce the output file dimension by a quantity in the order of ~1KB.`,
         "question6": "Can I check the source code? Who are the authors?",
         "answer6": `Source code is available <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target='_blank'>at this link</a>. This project is part of the Master thesis in Computer Science of Marco Carfizzi and Giacomo Arrigo, supervised by <a href='https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.`,
+        "question7": "What formats are supported?",
+        "answer7": "You can upload any image format, such as jpg, png, gif, but not pdf files. If you need to convert the QR of a pdf file you can use the camera scanning feature!"
     }
 }

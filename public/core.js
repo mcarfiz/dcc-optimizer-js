@@ -88,7 +88,9 @@ function revertScan() {
 async function optimize(/*label,*/ result) {
     var qrString = String(result);
     // decode of cose content into dcc variable
-    dcc = await DCC.fromRaw(qrString);
+    try { dcc = await DCC.fromRaw(qrString); }
+    catch (err) { error(err); }
+
     if (dcc) {
         // remove health certificate version, if italian case
         if (document.getElementById('radio-it').checked)
@@ -160,7 +162,6 @@ document.getElementById("nav-home-btn").addEventListener("click", function () {
     }
 }, false);
 
-
 // load text strings from json of the selected language
 function load_text() {
     // home
@@ -194,8 +195,8 @@ function load_text() {
     $('#answer6').html(lang["faq"]["answer6"]);
     $('#question7').html(lang["faq"]["question7"]);
     $('#answer7').html(lang["faq"]["answer7"]);
-    $('#question8').html(lang["faq"]["question8"]);
-    $('#answer8').html(lang["faq"]["answer8"]);
+    //$('#question8').html(lang["faq"]["question8"]);
+    //$('#answer8').html(lang["faq"]["answer8"]);
     $('#adv-ans3').html(lang["faq"]["adv-ans3"]);
     $('#adv-ans3-file-sel1').html(lang["faq"]["adv-ans3-file-sel1"]);
     $('#adv-ans3-file-sel2').html(lang["faq"]["adv-ans3-file-sel2"]);
