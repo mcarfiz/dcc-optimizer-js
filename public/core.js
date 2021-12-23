@@ -17,7 +17,6 @@ var qrCode;
 var dcc;
 var qrEngine;
 var text;
-var show_faq = false;
 var tab = "home";
 var lang = ita;
 
@@ -161,22 +160,6 @@ document.getElementById("nav-home-btn").addEventListener("click", function () {
     }
 }, false);
 
-// advanced faq toggle
-$("#advanced-faq-btn").click(function () {
-    $("#advanced-faq-1").toggle("slow");
-    $("#advanced-faq-2").toggle("slow");
-    // is it showing advanced faqs?
-    if (show_faq) {
-        $("#advanced-faq-btn").text(lang["faq"]["adv-btn-show"]);
-        $("#advanced-faq-btn").attr("class", "btn btn-success");
-        show_faq = false;
-    }
-    else {
-        $("#advanced-faq-btn").text(lang["faq"]["adv-btn-hide"]);
-        $("#advanced-faq-btn").attr("class", "btn btn-danger");
-        show_faq = true;
-    }
-});
 
 // load text strings from json of the selected language
 function load_text() {
@@ -221,11 +204,8 @@ function load_text() {
     $('#adv-ans3-qr-scan2').html(lang["faq"]["adv-ans3-qr-scan2"]);
     $('#adv-ans3-qr-gen1').html(lang["faq"]["adv-ans3-qr-gen1"]);
     $('#adv-ans3-qr-gen2').html(lang["faq"]["adv-ans3-qr-gen2"]);
-    $('#adv-ans4').html(lang["faq"]["adv-ans4"]);
-    if (show_faq)
-        $('#advanced-faq-btn').text(lang["faq"]["adv-btn-hide"]);
-    else
-        $('#advanced-faq-btn').text(lang["faq"]["adv-btn-show"]);
+    $('#adv-ans5').html(lang["faq"]["adv-ans5"]);
+
     // listener for dinamically generated faq link in advanced settings
     document.getElementById("setting-faq-btn").addEventListener("click", function () {
         document.getElementById("nav-faq-btn").click();
