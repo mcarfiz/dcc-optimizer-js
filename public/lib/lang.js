@@ -39,7 +39,7 @@ let ita = {
         "question6": "Posso controllare il codice sorgente? Chi sono gli autori?",
         "answer6": `Il codice sorgente \xE8 disponibile <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target="_blank">attraverso questo link</a>. Questo progetto fa parte della tesi di Laurea Magistrale in Computer Science di Marco Carfizzi e Giacomo Arrigo, sotto la supervisione del <a href= 'https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.`,
         "question7": "Quali formati sono compatibili?",
-        "answer7": "\xC8 possibile caricare un qualsiasi formato immagine, come ad esempio jpg, png, gif, ma non file pdf. Se hai la necessità di convertire il QR di un file pdf puoi usare la funzione di scannerizzazione da videocamera!"
+        "answer7": "\xC8 possibile caricare un qualsiasi formato immagine, come ad esempio jpg, png, gif, ma non file pdf. Se hai la necessit\xE0 di convertire il QR di un file pdf puoi usare la funzione di scansione da videocamera!"
     }
 }
 

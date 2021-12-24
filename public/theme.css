@@ -25,7 +25,7 @@ img{
     margin-bottom: 0.9em;
 }
 
-@media only screen and (max-width: 539px){
+@media only screen and (max-width: 519px){
     .navbar-brand{
         width: 100%;
     }
@@ -34,7 +34,7 @@ img{
     }
 }
 
-@media only screen and (min-width: 540px){
+@media only screen and (min-width: 520px){
     #nav-home{
         margin-left: auto;
     }
@@ -43,6 +43,6 @@ img{
     }
     
     .navbar .nav-item:not(:last-child){
-        border-right: 2px solid #000000;
+        border-right: 1px solid #000000;
     }
 }
