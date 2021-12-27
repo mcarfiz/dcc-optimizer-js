@@ -89,7 +89,7 @@ async function optimize(/*label,*/ result) {
     var qrString = String(result);
     // decode of cose content into dcc variable
     try { dcc = await DCC.fromRaw(qrString); }
-    catch (err) { error(err); }
+    catch (err) { error(err); return; }
 
     if (dcc) {
         // remove health certificate version, if italian case
