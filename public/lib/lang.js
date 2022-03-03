@@ -37,7 +37,7 @@ let ita = {
         "answer5": "Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza di caratteri posta all'inizio del contenuto del QR Code, per cui la nostra applicazione offre la possibilit\xE0 di rimuovere questo prefisso per minimizzare la densit\xE0 del nuovo QR Code nel caso la seconda opzione venga manualmente selezionata dall'utente, mentre l'opzione di default lascia intatta questa sequenza che viene invece controllata da altre app di verifica europee.",
         "adv-ans5": `In particolare, la stringa che viene ignorata dalla verifica dell'app italiana VerificaC19 \xE8 la dicitura \"HC1:\" che identifica la versione del certificato digitale e di conseguenza la codifica e il processo di generazione effettuati su di esso, come definito dalle <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">specifiche europee</a>. Rimuovendo questa corta stringa, \xE8 possibile ridurre le dimensioni del file di output di una quantit\xE0 nell'ordine di ~1KB.`,
         "question6": "Posso controllare il codice sorgente? Chi sono gli autori?",
-        "answer6": `Il codice sorgente \xE8 disponibile <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target="_blank">attraverso questo link</a>. Questo progetto fa parte della tesi di Laurea Magistrale in Computer Science di Marco Carfizzi e Giacomo Arrigo, sotto la supervisione del <a href= 'https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.`,
+        "answer6": `Il codice sorgente \xE8 disponibile <a href='https://github.com/mcarfiz/dcc-optimizer-js' target="_blank">attraverso questo link</a>. Questo progetto fa parte della tesi di Laurea Magistrale in Computer Science di Marco Carfizzi e Giacomo Arrigo, sotto la supervisione del <a href= 'https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.`,
         "question7": "Quali formati sono compatibili?",
         "answer7": "\xC8 possibile caricare un qualsiasi formato immagine, come ad esempio jpg, png, gif, ma non file pdf. Se hai la necessit\xE0 di convertire il QR di un file pdf puoi usare la funzione di scansione da videocamera!"
     }
@@ -45,7 +45,7 @@ let ita = {
 
 let eng = {
     "home": {
-        "nav-title": "DGCC QR Optimizer",
+        "nav-title": "DCC QR Optimizer",
         "main-title": "Provide your QR Covid Certificate:",
         "file-selector": "Choose image",
         "qrcamera-btn": "Scan QR Code",
@@ -62,11 +62,11 @@ let eng = {
         "answer": "ANSWER:",
         "adv-detail": "Advanced details",
         "question1": "What can I do with this app?",
-        "answer1": " This app allows you to regenerate the QR Code containing the Digital Green Covid-19 Certification (DGCC) so that it is less dense and consequently more readable by verification apps.",
+        "answer1": " This app allows you to regenerate the QR Code containing the EU Digital COVID Certificate (DCC) so that it is less dense and consequently more readable by verification apps.",
         "question2": "What do I have to do to generate the new QR Code?",
         "answer2": " There are two ways to provide the original QR Code: by pressing the \"Choose file\" button and selecting the valid QR Code image from the device archive, or by starting the scanning through the camera by pressing the \"Scan QR with camera\" button and framing the QR Code. Both procedures automatically generate a new QR Code, which can be saved by pressing the \"Download\" button.",
         "question3": " Is this application safe? What happens to my Covid-19 Certification?",
-        "answer3": " The application is developed purely in JavaScript, a technology that allows the DGCC to be processed in the browser without sending data over the network. The application does not send or save the content of the Green Pass in any way, and the certificate is not modified.",
+        "answer3": " The application is developed purely in JavaScript, a technology that allows the DCC to be processed in the browser without sending data over the network. The application does not send or save the content of the Green Pass in any way, and the certificate is not modified.",
         "adv-ans3": "Upon loading the home page, all necessary components are loaded in such a way that they remain static and there is no network communication during the loading and processing of the user's QR Code. Some implementation details and libraries used in the sensitive data manipulation processes are given below:",
         "adv-ans3-file-sel1": "File selection:",
         "adv-ans3-file-sel2": `To load the QR Code image from the file system, the <a href="https://github.com/nimiq/qr-scanner" target="_blank">Qr-Scanner</a> library is used. In the case of manually loading a file, JavaScript requires the creation of a URL object in order to access the user-supplied image; this process is considered a network request by some browsers, as shown in the following example image:`,
@@ -75,15 +75,15 @@ let eng = {
         "adv-ans3-qr-scan2": `To scan the QR Code the <a href="https://www.npmjs.com/package/html5-qrcode" target='_blank'>Html5-QRCode</a> library is used. Unlike the previous library, this one allows JavaScript to read the content of the image directly from the MediaStream stream, avoiding the creation of a blob object and the resulting URL which in some cases is considered as a network request.`,
         "adv-ans3-qr-gen1": "QR code generation:",
         "adv-ans3-qr-gen2": `To decode the content of the original QR Code the <a href="https://github.com/ministero-salute/dcc-utils" target="_blank">DCC-Utils</a> library is used, while for the generation of the new QR Code the <a href="https://github.com/kozakdenys/qr-code-styling" target="_blank">QR-Code-Styling</a> library is used. Once the decoding is done, the content is passed without any changes to the QR generator, which transforms it into the new QR Code using the value \"L\" as an error correction parameter, resulting in a lower density of the QR Code compared to the original value \"M\".`,
-        "question4": "Is the DGCC provided here as good as the original one? What european verification apps are compatible?",
-        "answer4": "No manipulations are made to the certification content: if your original Green Pass is accepted by the verification apps, then the one provided here will be valid as well. We tested with apps from the following countries: Italy, Belgium, Czech Republic, Ireland.",
+        "question4": "Is the DCC provided here as good as the original one? What european verification apps are compatible?",
+        "answer4": "No manipulations are made to the certification content: if your original DCC is accepted by the verification apps, then the one provided here will be valid as well. We tested with apps from the following countries: Italy, Belgium, Czech Republic, Ireland.",
         "question5": "What is the meaning of \"Support both EU and Italian app\" and \"Support only VerificaC19 Italian app\"?",
         "answer5": "Attualmente l'app di verifica italiana VerificaC19 non controlla una sequenza di caratteri posta all'inizio del contenuto del QR Code, per cui la nostra applicazione offre la possibilit\xE0 di rimuovere questo prefisso per minimizzare la densit\xE0 del nuovo QR Code nel caso la seconda opzione venga manualmente selezionata dall'utente, mentre l'opzione di default lascia intatta questa sequenza che viene invece controllata da altre app di verifica europee.",
 
         "answer5": " Currently the Italian verification app VerificaC19 does not check a sequence of characters placed at the beginning of the QR Code content, so our app offers the possibility to remove this prefix to minimize the density of the new QR Code in case the second option is manually selected by the user, while the default option keeps intact this sequence that is conversely checked by other european verification apps.",
         "adv-ans5": `In particular, the prefix string that is ignored by the verification of the Italian VerifyC19 app is the wording \"HC1:\", which identifies the version of the digital certificate and consequently the encoding and generation process carried out on it, as defined by the <a target="_blank" href="https://ec.europa.eu/health/sites/default/files/ehealth/docs/digital-green-certificates_v1_en.pdf#page=7">European specifications</a>. By removing this short string, it is possible to reduce the output file dimension by a quantity in the order of ~1KB.`,
         "question6": "Can I check the source code? Who are the authors?",
-        "answer6": `Source code is available <a href='https://github.com/mcarfiz/dgcc-optimizer-js' target='_blank'>at this link</a>. This project is part of the Master thesis in Computer Science of Marco Carfizzi and Giacomo Arrigo, supervised by <a href='https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.`,
+        "answer6": `Source code is available <a href='https://github.com/mcarfiz/dcc-optimizer-js' target='_blank'>at this link</a>. This project is part of the Master thesis in Computer Science of Marco Carfizzi and Giacomo Arrigo, supervised by <a href='https://www.unive.it/data/persone/5590470/curriculum' target='_blank'>Prof. Riccardo Focardi</a>.`,
         "question7": "What formats are supported?",
         "answer7": "You can upload any image format, such as jpg, png, gif, but not pdf files. If you need to convert the QR of a pdf file you can use the camera scanning feature!"
     }

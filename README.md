@@ -1,5 +1,5 @@
-# dgcc-optimizer-js
- A simple web app to optimize the QR code of the DGCC
+# dcc-optimizer-js
+ A simple web app to optimize the QR code of the DCC
 
 # Usage
  Install `npm`
@@ -14,6 +14,6 @@
  [Use http-server](https://www.npmjs.com/package/http-server) to launch in browser.
 
 # Live demo
-Live demo is available [at this link](https://mcarfiz.github.io/dgcc-optimizer-js) thanks to GitHub pages.
+Live demo is available [at this link](https://mcarfiz.github.io/dcc-optimizer-js) thanks to GitHub pages.
 
 
