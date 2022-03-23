@@ -16,7 +16,7 @@
  Run with
  >npm start
 
- Alternative (Browser):
+# Alternative (Browser):
  [Use http-server](https://www.npmjs.com/package/http-server) to launch in browser.
 
 # Live demo
